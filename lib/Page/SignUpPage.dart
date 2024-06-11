@@ -192,7 +192,6 @@ class _SignUpPageState extends State<SignUpPage> {
                               fontFamily: 'Kadwa'))),
 
               SizedBox(height: 30),
-
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
