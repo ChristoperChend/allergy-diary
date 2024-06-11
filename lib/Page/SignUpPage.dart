@@ -103,8 +103,8 @@ class _SignUpPageState extends State<SignUpPage> {
           'password': password,
           'birthDate': birthDate,
           'phoneNumber': phoneNumber,
-          'alamat': '--',
-          'alergi': '--',
+          'alamat': '-',
+          'alergi': '-',
           'uid': userCredential.user!.uid
         });
 
