@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,8 +10,11 @@ class DetailChatPage extends StatefulWidget {
   final String receiverEmail;
   final String receiverID;
 
-  const DetailChatPage(
-      {super.key, required this.receiverEmail, required this.receiverID});
+  const DetailChatPage({
+    super.key,
+    required this.receiverEmail,
+    required this.receiverID,
+  });
 
   @override
   State<DetailChatPage> createState() => _DetailChatPageState();
@@ -53,6 +56,7 @@ class _DetailChatPageState extends State<DetailChatPage> {
   void sendMessage() async {
     if (messageController.text.isNotEmpty) {
       await cs.sendMessage(widget.receiverID, messageController.text);
+      print(widget.receiverID);
       messageController.clear();
     }
     scrollDown();
@@ -117,7 +121,6 @@ class _DetailChatPageState extends State<DetailChatPage> {
             child: TextField(
               controller: messageController,
               focusNode: myFocusNode,
-              obscureText: false,
               decoration: const InputDecoration(
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.black)),
@@ -126,6 +129,7 @@ class _DetailChatPageState extends State<DetailChatPage> {
                 fillColor: Color.fromRGBO(243, 246, 250, 1),
                 filled: true,
                 contentPadding: EdgeInsets.all(10),
+                hintText: 'Enter your message...',
               ),
             ),
           ),
@@ -142,7 +146,7 @@ class _DetailChatPageState extends State<DetailChatPage> {
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Center(
                     child: Text(
-                      'Kirim',
+                      'Send',
                       style: TextStyle(
                           fontFamily: 'Outfit',
                           color: Colors.white,

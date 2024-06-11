@@ -58,6 +58,14 @@ class _DoctorScheduleState extends State<DoctorSchedule> {
 
   void saveToFirebase(String date, String time) async {
     final userId = FirebaseAuth.instance.currentUser!.uid;
+    String userName = ''; // initialize an empty string to store the username
+
+    final userRef = FirebaseFirestore.instance.collection('users').doc(userId);
+    final userData = await userRef.get();
+    if (userData.exists) {
+      userName =
+          userData.data()!['name']; // assume 'name' is the field for username
+    }
     try {
       final formattedDate = DateFormat('EEE\ndd\nMMM yyyy').parse(date, true);
 
@@ -69,6 +77,7 @@ class _DoctorScheduleState extends State<DoctorSchedule> {
         'date': DateFormat('EEE, dd MMM yyyy').format(formattedDate),
         'time': time,
         'userId': userId,
+        'name': userName,
         'timestamp': FieldValue.serverTimestamp(),
       });
 

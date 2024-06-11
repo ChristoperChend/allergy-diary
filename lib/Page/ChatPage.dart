@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:project/ChatComponents/DetailChat.dart';
-
 import 'package:project/ChatComponents/doctorChatPage.dart';
 import 'package:project/ChatComponents/userTile.dart';
 import 'package:project/ChatComponents/chatService.dart';
@@ -49,7 +48,6 @@ class ChatPage extends StatelessWidget {
   Future<Widget> userOrDoctor(BuildContext context) async {
     User? user = FirebaseAuth.instance.currentUser;
     String? userId = user?.uid;
-    String? currentUserEmail = user?.email;
 
     if (userId != null) {
       DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
@@ -60,32 +58,59 @@ class ChatPage extends StatelessWidget {
       String? userRole = userSnapshot['role'];
 
       if (userRole == 'docter') {
-        QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-            .collection('docter')
-            .where('email', isEqualTo: currentUserEmail)
-            .get();
-
-        String docId = querySnapshot.docs[0].id;
-
-        CollectionReference chatRoomsCollection = FirebaseFirestore.instance.collection('chat_rooms');
-        DocumentSnapshot chatRoomDoc = await chatRoomsCollection.doc('R1JQaf7PWVqjc2ByonJf_UY2VuO3XehakiTC8WacnJG2BS1x2').get();
-        CollectionReference messagesCollection = chatRoomDoc.reference.collection('messages');
-        DocumentSnapshot messageDoc = await messagesCollection.doc('mAl8F7liahP1z4W1zvxg').get();
-        String senderEmail = messageDoc['senderEmail'];
-
-        if (querySnapshot.docs.isNotEmpty) {
-          return DoctorChatPage(
-            receiverId: docId,
-            receiverEmail: senderEmail,
-          );
-        }
-        return Container();
+        return buildDocterList();
       } else {
         return buildUserList();
       }
     } else {
       return const Center(child: Text('User not authenticated'));
     }
+  }
+
+  Widget buildDocterList() {
+    return StreamBuilder(
+      stream: cs.getDoctorChatListStream(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return const Text('Error');
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text('Loading...');
+        }
+
+        if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+          return ListView(
+            children: snapshot.data!
+                .map<Widget>(
+                    (doctorData) => buildDocterListItem(doctorData, context))
+                .toList(),
+          );
+        } else {
+          return const Center(child: Text('No patient available'));
+        }
+      },
+    );
+  }
+
+  Widget buildDocterListItem(
+      Map<String, dynamic> userData, BuildContext context) {
+    final userName = userData['name'] ?? 'Unknown User';
+    final userId = userData['uid'] ?? 'Unknown ID';
+    print('User Data tee: $userData');
+
+    return UserTile(
+        text: userName,
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DoctorChatPage(
+                  receiverEmail: userName,
+                  receiverId: userId,
+                ),
+              ));
+        });
   }
 
   Widget buildUserList() {
@@ -116,7 +141,6 @@ class ChatPage extends StatelessWidget {
 
   Widget buildUserListItem(
       Map<String, dynamic> doctorData, BuildContext context) {
-    // Print doctorData to debug its structure
     print('Doctor Data: $doctorData');
 
     final doctorName = doctorData['name'] ?? 'Unknown Doctor';
@@ -129,14 +153,13 @@ class ChatPage extends StatelessWidget {
           final canChat = await canUserChatWithDoctor(doctorId);
           if (canChat) {
             Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DetailChatPage(
-                  receiverEmail: doctorName,
-                  receiverID: doctorId,
-                ),
-              ),
-            );
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailChatPage(
+                    receiverEmail: doctorData['name'],
+                    receiverID: doctorData['uid'],
+                  ),
+                ));
           } else {
             showSchedulePopup(context);
           }
@@ -171,7 +194,6 @@ class ChatPage extends StatelessWidget {
         print('Current time: ${DateTime.now()}');
         print('Appointment time: $appointmentDateTime');
 
-        // Compare the current time and date with the appointment time and date
         if (DateTime.now().isAfter(appointmentDateTime)) {
           print('User can chat');
           return true;
