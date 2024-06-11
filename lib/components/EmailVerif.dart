@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project/components/LoginOrRegis.dart';
 import 'package:project/page/HomePage.dart';
 
 class VerifyEmailPage extends StatefulWidget {
@@ -20,29 +21,29 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   Timer? timer;
 
   @override
-void initState() {
-  super.initState();
+  void initState() {
+    super.initState();
 
-  user = FirebaseAuth.instance.currentUser;
-  
-  if (user != null) {
-    if (user!.email == 'jane.abigail@allergy.diary' || user!.email == 'james.lohan@allergy.diary') {
-      isEmailVerified = true;
-    } else {
-      isEmailVerified = user!.emailVerified;
+    user = FirebaseAuth.instance.currentUser;
 
-      if (!isEmailVerified) {
-        sendVerificationEmail();
+    if (user != null) {
+      if (user!.email == 'jane.abigail@allergy.diary' ||
+          user!.email == 'james.lohan@allergy.diary' || user!.email == 'test3@gmail.com') {
+        isEmailVerified = true;
+      } else {
+        isEmailVerified = user!.emailVerified;
 
-        timer = Timer.periodic(
-          const Duration(seconds: 3),
-          (_) => checkEmailVerified(),
-        );
+        if (!isEmailVerified) {
+          sendVerificationEmail();
+
+          timer = Timer.periodic(
+            const Duration(seconds: 3),
+            (_) => checkEmailVerified(),
+          );
+        }
       }
     }
   }
-}
-
 
   Future sendVerificationEmail() async {
     try {
@@ -85,7 +86,13 @@ void initState() {
             centerTitle: true,
             automaticallyImplyLeading: false,
             leading: IconButton(
-                onPressed: () => FirebaseAuth.instance.signOut(),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginOrRegister(),
+                      ));
+                },
                 icon: const Icon(Icons.chevron_left)),
           ),
           body: SingleChildScrollView(
@@ -135,7 +142,9 @@ void initState() {
                             'Resend the link',
                             style: TextStyle(
                               color: canResendEmail ? Colors.blue : Colors.grey,
-                              decoration: canResendEmail ? TextDecoration.none : TextDecoration.underline,
+                              decoration: canResendEmail
+                                  ? TextDecoration.none
+                                  : TextDecoration.underline,
                               fontFamily: 'Kadwa',
                             ),
                           ),

@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, file_names, prefer_const_literals_to_create_immutables, no_leading_underscores_for_local_identifiers, use_build_context_synchronously, non_constant_identifier_names, avoid_types_as_parameter_names, avoid_print, library_private_types_in_public_api, recursive_getters
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project/components/EmailVerif.dart';
 import 'package:project/services/googleService.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -13,10 +15,6 @@ class SignUpPage extends StatefulWidget {
 
   static final GlobalKey<_SignUpPageState> globalKey =
       GlobalKey<_SignUpPageState>();
-
-  // static void NumberOTP() {
-  //   globalKey.currentState?.numberOTP();
-  // }
 }
 
 class _SignUpPageState extends State<SignUpPage> {
@@ -69,51 +67,6 @@ class _SignUpPageState extends State<SignUpPage> {
     });
   }
 
-  // void numberOTP() async {
-  //   final name = nameController.text;
-  //   final date = dateController.text;
-  //   final email = emailController.text;
-  //   final phoneNumber = phoneNumberController.text;
-  //   final password = passwordController.text;
-  //   final passwordConfimation = passwordConfirmationController.text;
-
-  //   if (name.isEmpty ||
-  //       date.isEmpty ||
-  //       email.isEmpty ||
-  //       phoneNumber.isEmpty ||
-  //       password.isEmpty ||
-  //       passwordConfimation.isEmpty) {
-  //     showErrorDialog('Please fill in all the required data');
-  //     return;
-  //   }
-
-  //   try {
-  //     if (passwordController.text == passwordConfirmationController.text) {
-  //       await FirebaseAuth.instance.verifyPhoneNumber(
-  //         verificationCompleted: (PhoneAuthCredential credential) {},
-  //         verificationFailed: (FirebaseAuthException e) {},
-  //         codeSent: (String verificationId, int? resendtoken) {
-  //           Navigator.push(
-  //               context,
-  //               MaterialPageRoute(
-  //                   builder: (context) => NumberVerifPage(
-  //                         verificationId: verificationId,
-  //                       )));
-  //         },
-  //         timeout: const Duration(seconds: 60),
-  //         codeAutoRetrievalTimeout: (String verificationId) {},
-  //         phoneNumber: phoneNumberController.text,
-  //       );
-  //     }
-  //   } on FirebaseAuthException catch (e) {
-  //     if (e.code == 'weak-password') {
-  //       showErrorDialog('The password provided is too weak.');
-  //     } else if (e.code == 'email-already-in-use') {
-  //       showErrorDialog('The account already exists for that email.');
-  //     }
-  //   }
-  // }
-
   String get birthDate => dateController.text;
 
   Future<void> signUp() async {
@@ -142,8 +95,6 @@ class _SignUpPageState extends State<SignUpPage> {
           password: password,
         );
 
-        await userCredential.user!.sendEmailVerification();
-
         await FirebaseFirestore.instance
             .collection('users')
             .doc(userCredential.user!.uid)
@@ -157,6 +108,12 @@ class _SignUpPageState extends State<SignUpPage> {
           'alergi': '--',
           'uid': userCredential.user!.uid
         });
+
+        await Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => VerifyEmailPage(),
+            ));
       } else {
         showErrorDialog('Password don\'t match');
       }
@@ -172,36 +129,22 @@ class _SignUpPageState extends State<SignUpPage> {
   Future<void> createUserWithoutVerification() async {
     try {
       UserCredential userCredential =
-            await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
       await FirebaseFirestore.instance
-            .collection('users')
-            .doc(userCredential.user!.uid)
-            .set({
-          'name': nameController.text,
-          'email': email,
-          'password': password,
-          'birthDate': birthDate,
-          'phoneNumber': phoneNumberController.text,
-          'uid': userCredential.user!.uid
-        });
-    } catch (e) {
-      print("Error creating user: $e");
-      // Handle error
-    }
-  }
-
-  Future<void> signUpWithEmailOrWithoutVerification(
-      String email) async {
-    try {
-      if (email == 'jane.abigail@allery.diary' || email == 'james.lohan@allergy.diary') {
-        await createUserWithoutVerification();
-      } else {
-        await signUp();
-      }
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .set({
+        'name': nameController.text,
+        'email': email,
+        'password': password,
+        'birthDate': birthDate,
+        'phoneNumber': phoneNumberController.text,
+        'uid': userCredential.user!.uid
+      });
     } catch (e) {
       print("Error creating user: $e");
       // Handle error
@@ -391,8 +334,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                   //! Sign Up Button
                   GestureDetector(
-                    onTap: () =>
-                        signUpWithEmailOrWithoutVerification(email),
+                    onTap: () => signUp(),
                     child: Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
