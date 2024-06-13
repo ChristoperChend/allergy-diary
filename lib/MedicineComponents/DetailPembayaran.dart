@@ -1,18 +1,27 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:project/components/PaymentMethod.dart';
 
-class DetailPembayaran extends StatelessWidget {
+class DetailPembayaran extends StatefulWidget {
   final String product;
   final String price;
   final VoidCallback onTap;
+
+  const DetailPembayaran({
+    super.key,
+    required this.product,
+    required this.price,
+    required this.onTap,
+  });
+
+  @override
+  _DetailPembayaranState createState() => _DetailPembayaranState();
+}
+
+class _DetailPembayaranState extends State<DetailPembayaran> {
   final TextEditingController addressController = TextEditingController();
-  DetailPembayaran(
-      {super.key,
-      required this.product,
-      required this.price,
-      required this.onTap});
+  String? selectedPaymentMethod;
+  String? selectedPaymentImage;
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +34,11 @@ class DetailPembayaran extends StatelessWidget {
         centerTitle: true,
         automaticallyImplyLeading: false,
         leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(Icons.chevron_left)),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(Icons.chevron_left),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -47,7 +57,7 @@ class DetailPembayaran extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          product,
+                          widget.product,
                           style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
@@ -56,7 +66,7 @@ class DetailPembayaran extends StatelessWidget {
                           style: TextStyle(color: Colors.grey.shade600),
                         ),
                         Text('27 July 2023, 11:00 WIB',
-                            style: TextStyle(color: Colors.grey.shade600))
+                            style: TextStyle(color: Colors.grey.shade600)),
                       ],
                     ),
                   ),
@@ -94,9 +104,9 @@ class DetailPembayaran extends StatelessWidget {
                             const Text('Total Payment',
                                 style: TextStyle(fontSize: 17)),
                             Text(
-                              price,
+                              widget.price,
                               style: const TextStyle(fontSize: 17),
-                            )
+                            ),
                           ],
                         )
                       ],
@@ -145,9 +155,65 @@ class DetailPembayaran extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 40,
+              ),
+              if (selectedPaymentMethod != null && selectedPaymentImage != null)
+                Center(
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Selected Payment Method',
+                            style: TextStyle(fontSize: 17),
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Image.asset(
+                                selectedPaymentImage!,
+                                width: 60,
+                                height: 60,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                selectedPaymentMethod!,
+                                style: const TextStyle(fontSize: 17),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               const SizedBox(height: 30),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PaymentMethod(
+                        price: widget.price,
+                        onPaymentMethodSelected:
+                            (String paymentMethod, String paymentImage) {
+                          setState(() {
+                            selectedPaymentMethod = paymentMethod;
+                            selectedPaymentImage = paymentImage;
+                          });
+                        },
+                      ),
+                    ),
+                  );
+                },
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
@@ -184,26 +250,12 @@ class DetailPembayaran extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   if (addressController.text.isEmpty) {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text('Error'),
-                          content:
-                              const Text('Shipping address must be filled.'),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text('OK'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
+                    showErrorPopup(context, 'fill the shipping address');
+                  } else if (selectedPaymentMethod == null &&
+                      selectedPaymentImage == null) {
+                    showErrorPopup(context, 'select the payment method');
                   } else {
-                    onTap();
+                    widget.onTap();
                   }
                 },
                 child: Container(
@@ -228,6 +280,26 @@ class DetailPembayaran extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void showErrorPopup(BuildContext context, String errorMessage) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Error'),
+          content: Text(errorMessage),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
