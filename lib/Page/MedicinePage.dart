@@ -3,7 +3,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project/MedicineComponents/DetailPembayaran.dart';
-import 'package:project/MedicineComponents/Pembayaran.dart';
 import 'package:project/readData/GetMedicineInfo.dart';
 
 class MedicinePage extends StatefulWidget {
@@ -82,21 +81,8 @@ class _MedicinePageState extends State<MedicinePage> {
             actions: [
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DetailPembayaran(
-                            product: '${data['medicineName']}',
-                            price: '${data['price']}',
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        Pembayaran(price: '${data['price']}'),
-                                  ));
-                            }),
-                      ));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => DetailPembayaran(product: data['medicineName'], price: data['price'])));
                 },
                 child: Container(
                   padding: const EdgeInsets.all(10),

@@ -5,7 +5,8 @@ import 'package:project/MedicineComponents/PembayaranSelesai.dart';
 
 class Pembayaran extends StatelessWidget {
   final String price;
-  const Pembayaran({super.key, required this.price});
+  final String choosenMethod;
+  const Pembayaran({super.key, required this.price, required this.choosenMethod});
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +41,8 @@ class Pembayaran extends StatelessWidget {
                       children: [
                         Text(
                           'Virtual Account Numbers',
-                          style:
-                              TextStyle(fontSize: 15, color: Colors.grey.shade600),
+                          style: TextStyle(
+                              fontSize: 15, color: Colors.grey.shade600),
                         ),
                         Divider(
                           color: Colors.grey.shade600,
@@ -52,8 +53,8 @@ class Pembayaran extends StatelessWidget {
                         const SizedBox(height: 10),
                         const Text(
                           '1234567890123456789',
-                          style:
-                              TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -68,7 +69,8 @@ class Pembayaran extends StatelessWidget {
                   children: [
                     const Text(
                       'Payment Details',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(
                       height: 15,
@@ -99,9 +101,9 @@ class Pembayaran extends StatelessWidget {
                       'Payment Method',
                       style: TextStyle(color: Colors.grey.shade600),
                     ),
-                    const Text(
-                      'BCA Virtual Account',
-                      style: TextStyle(fontSize: 18),
+                    Text(
+                      choosenMethod,
+                      style: const TextStyle(fontSize: 18),
                     ),
                     const SizedBox(
                       height: 15,
@@ -120,11 +122,11 @@ class Pembayaran extends StatelessWidget {
               const SizedBox(height: 40),
               GestureDetector(
                 onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const PembayaranSelesai()));
-              },
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PembayaranSelesai()));
+                },
                 child: Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(

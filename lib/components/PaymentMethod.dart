@@ -34,83 +34,85 @@ class _PaymentMethodState extends State<PaymentMethod> {
             },
             icon: const Icon(Icons.chevron_left)),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const Text(
-                  'Payment',
-                  style: TextStyle(fontFamily: 'Outfit', fontSize: 20),
-                ),
-                Text('Rp $finalPrice',
-                    style: const TextStyle(fontFamily: 'Outfit', fontSize: 20)),
-              ],
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.blue),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text('Virtual Account',
-                          style: TextStyle(fontFamily: 'Outfit', fontSize: 17)),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          widget.onPaymentMethodSelected(
-                              'Virtual Account', 'image/BCA.png');
-                          Navigator.of(context).pop();
-                        },
-                        child: buildPaymentOptions('image/BCA.png'),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      buildEwalletDropdown(),
-                    ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const Text(
+                    'Payment',
+                    style: TextStyle(fontFamily: 'Outfit', fontSize: 20),
                   ),
-                )),
-            const SizedBox(height: 40),
-            GestureDetector(
-              onTap: () {
-                if (selectedEWallet != null) {
-                  widget.onPaymentMethodSelected(
-                      selectedEWallet!, getEwalletImage(selectedEWallet!));
-                  Navigator.of(context).pop();
-                }
-              },
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: const Color.fromRGBO(71, 116, 186, 1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Center(
-                  child: Text(
-                    'Confirm',
-                    style: TextStyle(
-                      fontFamily: 'Outfit',
-                      color: Colors.white,
-                      fontSize: 17,
+                  Text('Rp $finalPrice',
+                      style: const TextStyle(fontFamily: 'Outfit', fontSize: 20)),
+                ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blue),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Virtual Account',
+                            style: TextStyle(fontFamily: 'Outfit', fontSize: 17)),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            widget.onPaymentMethodSelected(
+                                'Virtual Account', 'image/BCA.png');
+                            Navigator.of(context).pop();
+                          },
+                          child: buildPaymentOptions('image/BCA.png'),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        buildEwalletDropdown(),
+                      ],
+                    ),
+                  )),
+              const SizedBox(height: 40),
+              GestureDetector(
+                onTap: () {
+                  if (selectedEWallet != null) {
+                    widget.onPaymentMethodSelected(
+                        selectedEWallet!, getEwalletImage(selectedEWallet!));
+                    Navigator.of(context).pop();
+                  }
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: const Color.fromRGBO(71, 116, 186, 1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      'Confirm',
+                      style: TextStyle(
+                        fontFamily: 'Outfit',
+                        color: Colors.white,
+                        fontSize: 17,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

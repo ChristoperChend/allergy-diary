@@ -1,17 +1,18 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:project/MedicineComponents/Pembayaran.dart';
 import 'package:project/components/PaymentMethod.dart';
 
 class DetailPembayaran extends StatefulWidget {
   final String product;
   final String price;
-  final VoidCallback onTap;
 
   const DetailPembayaran({
     super.key,
     required this.product,
     required this.price,
-    required this.onTap,
   });
 
   @override
@@ -255,7 +256,11 @@ class _DetailPembayaranState extends State<DetailPembayaran> {
                       selectedPaymentImage == null) {
                     showErrorPopup(context, 'select the payment method');
                   } else {
-                    widget.onTap();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Pembayaran(price: widget.price, choosenMethod: selectedPaymentMethod!,)
+                        ));
                   }
                 },
                 child: Container(
