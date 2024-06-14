@@ -50,6 +50,7 @@ dependencies:
   camera: ^0.10.5+9
   permission_handler: ^11.3.1
   provider: ^6.1.2
+  url_launcher: ^6.3.0
 
 dev_dependencies:
   flutter_test:
