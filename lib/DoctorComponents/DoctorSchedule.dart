@@ -263,10 +263,7 @@ class _DoctorScheduleState extends State<DoctorSchedule> {
                         ),
                       ));
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        content: Text('Please select a date and time')),
-                  );
+                  showErrorPopup(context, "Something Missing...", "Please select the Date/Time");
                 }
               },
               child: Container(
@@ -306,6 +303,26 @@ class _DoctorScheduleState extends State<DoctorSchedule> {
         fontWeight: FontWeight.bold,
         color: selectedDateIndex == index ? Colors.white : Colors.black,
       ),
+    );
+  }
+
+  void showErrorPopup(BuildContext context, String error, String errorMessage) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(error),
+          content: Text(errorMessage),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

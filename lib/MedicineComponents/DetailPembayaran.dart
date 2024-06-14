@@ -251,10 +251,10 @@ class _DetailPembayaranState extends State<DetailPembayaran> {
               GestureDetector(
                 onTap: () {
                   if (addressController.text.isEmpty) {
-                    showErrorPopup(context, 'fill the shipping address');
+                    showErrorPopup(context, 'Shipping Address Has not Been Filled In', 'Please Fill the Shipping Address');
                   } else if (selectedPaymentMethod == null &&
                       selectedPaymentImage == null) {
-                    showErrorPopup(context, 'select the payment method');
+                    showErrorPopup(context, 'Payment Method not Selected', 'Please Select the Payment Method');
                   } else {
                     Navigator.push(
                         context,
@@ -288,12 +288,12 @@ class _DetailPembayaranState extends State<DetailPembayaran> {
     );
   }
 
-  void showErrorPopup(BuildContext context, String errorMessage) {
+  void showErrorPopup(BuildContext context, String error,  String errorMessage) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Error'),
+          title: Text(error),
           content: Text(errorMessage),
           actions: [
             TextButton(

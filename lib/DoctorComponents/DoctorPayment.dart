@@ -226,7 +226,7 @@ class _DoctorPaymentState extends State<DoctorPayment> {
                 onTap: () {
                   if (selectedPaymentMethod == null &&
                       selectedPaymentImage == null) {
-                    showErrorPopup(context, 'select the payment method');
+                    showErrorPopup(context, 'Payment Method not Selected', 'Please Select the Payment Method');
                   } else {
                     Navigator.push(
                         context,
@@ -260,12 +260,12 @@ class _DoctorPaymentState extends State<DoctorPayment> {
     );
   }
 
-  void showErrorPopup(BuildContext context, String errorMessage) {
+  void showErrorPopup(BuildContext context, String error, String errorMessage) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Error'),
+          title: Text(error),
           content: Text(errorMessage),
           actions: [
             TextButton(
