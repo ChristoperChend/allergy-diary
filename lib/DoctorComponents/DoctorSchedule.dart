@@ -11,12 +11,13 @@ class DoctorSchedule extends StatefulWidget {
   final String imagePath;
   final String name;
   final String choosenDate;
+  final String price;
   const DoctorSchedule(
       {super.key,
       required this.doctorId,
       required this.imagePath,
       required this.name,
-      required this.choosenDate});
+      required this.choosenDate, required this.price});
 
   @override
   State<DoctorSchedule> createState() => _DoctorScheduleState();
@@ -58,13 +59,12 @@ class _DoctorScheduleState extends State<DoctorSchedule> {
 
   void saveToFirebase(String date, String time) async {
     final userId = FirebaseAuth.instance.currentUser!.uid;
-    String userName = ''; // initialize an empty string to store the username
+    String userName = '';
 
     final userRef = FirebaseFirestore.instance.collection('users').doc(userId);
     final userData = await userRef.get();
     if (userData.exists) {
-      userName =
-          userData.data()!['name']; // assume 'name' is the field for username
+      userName = userData.data()!['name'];
     }
     try {
       final formattedDate = DateFormat('EEE\ndd\nMMM yyyy').parse(date, true);
@@ -81,7 +81,6 @@ class _DoctorScheduleState extends State<DoctorSchedule> {
         'timestamp': FieldValue.serverTimestamp(),
       });
 
-      // Save the appointment under the user
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
@@ -257,9 +256,11 @@ class _DoctorScheduleState extends State<DoctorSchedule> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => DoctorPayment(
-                            image: widget.imagePath,
-                            name: widget.name,
-                            choosenDate: choosenDate),
+                          image: widget.imagePath,
+                          name: widget.name,
+                          choosenDate: choosenDate,
+                          price: widget.price,
+                        ),
                       ));
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(

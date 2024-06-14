@@ -138,7 +138,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => DoctorSchedule(doctorId: widget.doctorId, imagePath: widget.imagePath, name: widget.name, choosenDate: '',),
+                        builder: (context) => DoctorSchedule(doctorId: widget.doctorId, imagePath: widget.imagePath, name: widget.name, choosenDate: '', price: widget.price,),
                       ));
                 },
                 child: Container(

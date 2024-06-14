@@ -1,23 +1,30 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:project/MedicineComponents/Pembayaran.dart';
+import 'package:project/components/PaymentMethod.dart';
 
 class DoctorPayment extends StatefulWidget {
   final String image;
   final String name;
   final String choosenDate;
-  const DoctorPayment(
-      {super.key,
-      required this.image,
-      required this.name,
-      required this.choosenDate});
+  final String price;
+
+  const DoctorPayment({
+    Key? key,
+    required this.image,
+    required this.name,
+    required this.choosenDate,
+    required this.price,
+  }) : super(key: key);
 
   @override
   State<DoctorPayment> createState() => _DoctorPaymentState();
 }
 
 class _DoctorPaymentState extends State<DoctorPayment> {
+  String? selectedPaymentMethod;
+  String? selectedPaymentImage;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,26 +133,123 @@ class _DoctorPaymentState extends State<DoctorPayment> {
               const SizedBox(
                 height: 15,
               ),
+              if (selectedPaymentMethod != null && selectedPaymentImage != null)
+                Center(
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Selected Payment Method',
+                            style: TextStyle(fontSize: 17),
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Image.asset(
+                                selectedPaymentImage!,
+                                width: 60,
+                                height: 60,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                selectedPaymentMethod!,
+                                style: const TextStyle(fontSize: 17),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              const SizedBox(height: 30),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PaymentMethod(
+                        price: widget.price,
+                        onPaymentMethodSelected:
+                            (String paymentMethod, String paymentImage) {
+                          setState(() {
+                            selectedPaymentMethod = paymentMethod;
+                            selectedPaymentImage = paymentImage;
+                          });
+                        },
+                      ),
+                    ),
+                  );
+                },
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: const Color.fromRGBO(143, 174, 222, 1)),
+                    border: Border.all(
+                        color: const Color.fromRGBO(143, 174, 222, 1)),
                   ),
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children: [
-                          Icon(FontAwesomeIcons.wallet, size: 17,),
+                          Icon(
+                            FontAwesomeIcons.wallet,
+                            size: 17,
+                          ),
                           SizedBox(width: 15),
-                          Text('Choose Payment Method', style: TextStyle(fontSize: 15),),
+                          Text(
+                            'Choose Payment Method',
+                            style: TextStyle(fontSize: 15),
+                          ),
                         ],
                       ),
-                      Icon(FontAwesomeIcons.chevronRight, size: 17,),
+                      Icon(
+                        FontAwesomeIcons.chevronRight,
+                        size: 17,
+                      ),
                     ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 30),
+              GestureDetector(
+                onTap: () {
+                  if (selectedPaymentMethod == null &&
+                      selectedPaymentImage == null) {
+                    showErrorPopup(context, 'select the payment method');
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Pembayaran(price: widget.price, choosenMethod: selectedPaymentMethod!,)
+                        ));
+                  }
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: const Color.fromRGBO(71, 116, 186, 1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      'Next',
+                      style: TextStyle(
+                        fontFamily: 'Kadwa',
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -153,6 +257,26 @@ class _DoctorPaymentState extends State<DoctorPayment> {
           ),
         ),
       ),
+    );
+  }
+
+  void showErrorPopup(BuildContext context, String errorMessage) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Error'),
+          content: Text(errorMessage),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
