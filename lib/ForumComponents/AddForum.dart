@@ -13,14 +13,32 @@ class AddForumPage extends StatefulWidget {
 
 class _AddForumPageState extends State<AddForumPage> {
   final TextEditingController _contentController = TextEditingController();
+  late Future<String?> _usernameFuture;
 
-  void _showAlertDialog() {
+  @override
+  void initState() {
+    super.initState();
+    _usernameFuture = _fetchUsername();
+  }
+
+  Future<String?> _fetchUsername() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      DocumentSnapshot document = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+      if (document.exists) {
+        return (document.data() as Map<String, dynamic>)['name'] as String?;
+      }
+    }
+    return null;
+  }
+
+  void _showAlertDialog(String title, String content) {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Empty Content', style: TextStyle(fontFamily: 'Outfit'),),
-          content: const Text('Please fill in the content before submitting.', style: TextStyle(fontFamily: 'Outfit'),),
+          title: Text(title, style: const TextStyle(fontFamily: 'Outfit')),
+          content: Text(content, style: const TextStyle(fontFamily: 'Outfit')),
           actions: [
             TextButton(
               onPressed: () {
@@ -36,94 +54,127 @@ class _AddForumPageState extends State<AddForumPage> {
 
   @override
   Widget build(BuildContext context) {
-    User? user = FirebaseAuth.instance.currentUser;
-    DocumentReference userDocRef =
-        FirebaseFirestore.instance.collection('users').doc(user?.uid);
-    String? username;
-    userDocRef.get().then((DocumentSnapshot document) {
-      if (document.exists) {
-        setState(() {
-          username = (document.data() as Map<String, dynamic>)['name'];
-        });
-      }
-    });
+    return FutureBuilder<String?>(
+      future: _usernameFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text(
+                'Unggah Forum',
+                style: TextStyle(fontFamily: 'Outfit', fontSize: 25),
+              ),
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(Icons.chevron_left),
+              ),
+            ),
+            body: const Center(child: CircularProgressIndicator()),
+          );
+        }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Unggah Forum',
-          style: TextStyle(fontFamily: 'Outfit', fontSize: 25),
-        ),
-        leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(Icons.chevron_left)),
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 10),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-            decoration: BoxDecoration(
-              color: Colors.blue,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: const Color.fromRGBO(143, 174, 222, 1)),
+        if (snapshot.hasError || !snapshot.hasData) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text(
+                'Unggah Forum',
+                style: TextStyle(fontFamily: 'Outfit', fontSize: 25),
+              ),
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(Icons.chevron_left),
+              ),
             ),
-            child: GestureDetector(
-              onTap: () {
-                if (_contentController.text.isEmpty) {
-                  _showAlertDialog();
-                } else {
-                  FirebaseFirestore.instance.collection('forums').add({
-                    'content': _contentController.text,
-                    'name': username,
-                    'likes': 0,
-                    'comments': 0,
-                    'repliesCount': 0,
-                    'timestamp': FieldValue.serverTimestamp(),
-                  }).then((_) {
-                    Navigator.pop(context);
-                  });
-                }
+            body: const Center(child: Text('Failed to load username')),
+          );
+        }
+
+        String? username = snapshot.data;
+
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text(
+              'Unggah Forum',
+              style: TextStyle(fontFamily: 'Outfit', fontSize: 25),
+            ),
+            leading: IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
               },
-              child: const Text(
-                'Kirim',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              icon: const Icon(Icons.chevron_left),
             ),
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-          child: Column(
-            children: [
-              TextField(
-                controller: _contentController,
-                decoration: InputDecoration(
-                  hintText: 'Tulis ceritamu disini',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15)),
+            actions: [
+              Container(
+                margin: const EdgeInsets.only(right: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: const Color.fromRGBO(143, 174, 222, 1)),
                 ),
-                maxLines: 5,
-              ),
-              const SizedBox(height: 20),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Icon(Icons.image, size: 30),
-                  Icon(Icons.camera_alt, size: 30),
-                  Icon(Icons.insert_emoticon, size: 30),
-                  Icon(Icons.more_horiz, size: 30),
-                ],
+                child: GestureDetector(
+                  onTap: () {
+                    if (_contentController.text.isEmpty) {
+                      _showAlertDialog('Empty Content', 'Please fill in the content before submitting.');
+                    } else {
+                      FirebaseFirestore.instance.collection('forums').add({
+                        'content': _contentController.text,
+                        'name': username,
+                        'likes': 0,
+                        'comments': 0,
+                        'repliesCount': 0,
+                        'timestamp': FieldValue.serverTimestamp(),
+                      }).then((_) {
+                        Navigator.pop(context);
+                      });
+                    }
+                  },
+                  child: const Text(
+                    'Kirim',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
-        ),
-      ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+              child: Column(
+                children: [
+                  TextField(
+                    controller: _contentController,
+                    decoration: InputDecoration(
+                      hintText: 'Tulis ceritamu disini',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                    maxLines: 5,
+                  ),
+                  const SizedBox(height: 20),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Icon(Icons.image, size: 30),
+                      Icon(Icons.camera_alt, size: 30),
+                      Icon(Icons.insert_emoticon, size: 30),
+                      Icon(Icons.more_horiz, size: 30),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

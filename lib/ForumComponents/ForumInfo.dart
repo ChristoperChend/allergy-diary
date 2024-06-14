@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +46,9 @@ class _ForumInfoPageState extends State<ForumInfoPage> {
       DocumentReference userDocRef =
           FirebaseFirestore.instance.collection('users').doc(user.uid);
       DocumentSnapshot userDoc = await userDocRef.get();
+
+      print('User Document Data: ${userDoc.data()}'); // Debug statement
+
       String username = (userDoc.data() as Map<String, dynamic>)['name'];
 
       DocumentReference forumDocRef =
@@ -55,7 +60,6 @@ class _ForumInfoPageState extends State<ForumInfoPage> {
         'timestamp': FieldValue.serverTimestamp(),
       });
 
-      // Increment the replies count
       await forumDocRef.update({
         'repliesCount': FieldValue.increment(1),
       });
