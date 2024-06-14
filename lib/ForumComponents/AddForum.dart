@@ -14,6 +14,26 @@ class AddForumPage extends StatefulWidget {
 class _AddForumPageState extends State<AddForumPage> {
   final TextEditingController _contentController = TextEditingController();
 
+  void _showAlertDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Empty Content', style: TextStyle(fontFamily: 'Outfit'),),
+          content: const Text('Please fill in the content before submitting.', style: TextStyle(fontFamily: 'Outfit'),),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
@@ -22,7 +42,9 @@ class _AddForumPageState extends State<AddForumPage> {
     String? username;
     userDocRef.get().then((DocumentSnapshot document) {
       if (document.exists) {
-        username = (document.data() as Map<String, dynamic>)['name'];
+        setState(() {
+          username = (document.data() as Map<String, dynamic>)['name'];
+        });
       }
     });
 
@@ -48,16 +70,20 @@ class _AddForumPageState extends State<AddForumPage> {
             ),
             child: GestureDetector(
               onTap: () {
-                FirebaseFirestore.instance.collection('forums').add({
-                  'content': _contentController.text,
-                  'name': username,
-                  'likes': 0,
-                  'comments': 0,
-                  'repliesCount': 0,
-                  'timestamp': FieldValue.serverTimestamp() ,
-                }).then((_) {
-                  Navigator.pop(context);
-                });
+                if (_contentController.text.isEmpty) {
+                  _showAlertDialog();
+                } else {
+                  FirebaseFirestore.instance.collection('forums').add({
+                    'content': _contentController.text,
+                    'name': username,
+                    'likes': 0,
+                    'comments': 0,
+                    'repliesCount': 0,
+                    'timestamp': FieldValue.serverTimestamp(),
+                  }).then((_) {
+                    Navigator.pop(context);
+                  });
+                }
               },
               child: const Text(
                 'Kirim',

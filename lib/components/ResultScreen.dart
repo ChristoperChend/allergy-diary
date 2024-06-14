@@ -15,7 +15,7 @@ class ResultScreen extends StatelessWidget {
           style: TextStyle(fontFamily: 'Outfit', fontSize: 25),
         ),
         centerTitle: true,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false, 
         leading: IconButton(
             onPressed: () {
               Navigator.of(context).pop();

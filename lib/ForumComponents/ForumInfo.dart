@@ -96,6 +96,26 @@ class _ForumInfoPageState extends State<ForumInfoPage> {
     }
   }
 
+  void _showAlertDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Empty Replies'),
+          content: const Text('Please fill in the reply before sending.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     String formattedDate = '';
@@ -273,7 +293,9 @@ class _ForumInfoPageState extends State<ForumInfoPage> {
                     ),
                     child: GestureDetector(
                       onTap: () {
-                        if (_replyController.text.isNotEmpty) {
+                        if (_replyController.text.isEmpty) {
+                          _showAlertDialog();
+                        } else {
                           _addReply(_replyController.text).then((_) {
                             _replyController.clear();
                           });
