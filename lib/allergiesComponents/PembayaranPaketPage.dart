@@ -2,18 +2,30 @@
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:project/MedicineComponents/Pembayaran.dart';
+import 'package:project/components/PaymentMethod.dart';
 
-class PembayaranPaketPage extends StatelessWidget {
+class PembayaranPaketPage extends StatefulWidget {
   final String paket;
   final String harga;
   final String hospitalName;
+  final String choosenDate;
 
   const PembayaranPaketPage({
     super.key,
     required this.paket,
     required this.harga,
     required this.hospitalName,
+    required this.choosenDate,
   });
+
+  @override
+  State<PembayaranPaketPage> createState() => _PembayaranPaketPageState();
+}
+
+class _PembayaranPaketPageState extends State<PembayaranPaketPage> {
+  String? selectedPaymentMethod;
+  String? selectedPaymentImage;
 
   @override
   Widget build(BuildContext context) {
@@ -38,20 +50,20 @@ class PembayaranPaketPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Pengecekan Alergi $paket',
+                'Pengecekan Alergi ${widget.paket}',
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
               Text(
-                hospitalName,
+                widget.hospitalName,
                 style:
                     const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
-              const Text(
-                '10 Mei 2024, 09:00 - 11:00 WIB',
-                style: TextStyle(color: Colors.grey),
+              Text(
+                widget.choosenDate,
+                style: const TextStyle(color: Colors.grey),
               ),
               const SizedBox(
                 height: 10,
@@ -77,7 +89,7 @@ class PembayaranPaketPage extends StatelessWidget {
                 children: [
                   const Text('Biaya Uji Sertifikasi',
                       style: TextStyle(color: Colors.grey)),
-                  Text('Rp $harga'),
+                  Text('Rp ${widget.harga}'),
                 ],
               ),
               const SizedBox(
@@ -86,8 +98,62 @@ class PembayaranPaketPage extends StatelessWidget {
               const Divider(
                   color: Color.fromRGBO(143, 174, 222, 1), thickness: 7),
               const SizedBox(height: 20),
+              if (selectedPaymentMethod != null && selectedPaymentImage != null)
+                Center(
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Selected Payment Method',
+                            style: TextStyle(fontSize: 17),
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Image.asset(
+                                selectedPaymentImage!,
+                                width: 60,
+                                height: 60,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                selectedPaymentMethod!,
+                                style: const TextStyle(fontSize: 17),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              const SizedBox(height: 30),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PaymentMethod(
+                        price: widget.harga,
+                        onPaymentMethodSelected:
+                            (String paymentMethod, String paymentImage) {
+                          setState(() {
+                            selectedPaymentMethod = paymentMethod;
+                            selectedPaymentImage = paymentImage;
+                          });
+                        },
+                      ),
+                    ),
+                  );
+                },
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
@@ -120,25 +186,32 @@ class PembayaranPaketPage extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
               GestureDetector(
                 onTap: () {
-                  // Implementasi logika lanjut
+                  if (selectedPaymentMethod == null &&
+                      selectedPaymentImage == null) {
+                    showErrorPopup(context, 'select the payment method');
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Pembayaran(price: widget.harga, choosenMethod: selectedPaymentMethod!,)
+                        ));
+                  }
                 },
                 child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(7),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: const Color.fromRGBO(71, 116, 186, 1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: const Center(
                     child: Text(
-                      'Lanjut',
+                      'Next',
                       style: TextStyle(
-                        fontFamily: 'Outfit',
+                        fontFamily: 'Kadwa',
                         color: Colors.white,
-                        fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
                     ),
@@ -149,6 +222,26 @@ class PembayaranPaketPage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void showErrorPopup(BuildContext context, String errorMessage) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Error'),
+          content: Text(errorMessage),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

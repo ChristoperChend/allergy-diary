@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:project/allergiesComponents/PembayaranPaketPage.dart';
+import 'package:project/allergiesComponents/CekAlergiSchedule.dart';
 
 class DetailPaketPage extends StatefulWidget {
   final String hospitalName;
@@ -107,12 +107,7 @@ class _DetailPaketPageState extends State<DetailPaketPage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => PembayaranPaketPage(
-                          paket:
-                              'Paket ${String.fromCharCode(65 + _selectedPaket)}',
-                          harga: _getPaketHarga(_selectedPaket),
-                          hospitalName: widget.hospitalName,
-                        ),
+                        builder: (context) => CekAlergiSchedule(choosenPaket: 'Paket ${String.fromCharCode(65 + _selectedPaket)}', harga: _getPaketHarga(_selectedPaket), hospital: widget.hospitalName,)
                       ));
                 },
                 child: Container(
