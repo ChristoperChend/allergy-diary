@@ -209,7 +209,7 @@ class _CekAlergiScheduleState extends State<CekAlergiSchedule> {
                                 harga: widget.harga,
                                 hospitalName: widget.hospital, choosenDate: choosenDate,)));
                   } else {
-                    showErrorPopup(context, "Please select the date/time");
+                    showErrorPopup(context, "Something Missing...", "Please select the Date/Time");
                   }
                 },
                 child: Container(
@@ -249,12 +249,12 @@ class _CekAlergiScheduleState extends State<CekAlergiSchedule> {
     );
   }
 
-  void showErrorPopup(BuildContext context, String errorMessage) {
+  void showErrorPopup(BuildContext context, String error, String errorMessage) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Error'),
+          title: Text(error),
           content: Text(errorMessage),
           actions: [
             TextButton(

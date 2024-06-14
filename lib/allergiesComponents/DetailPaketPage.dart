@@ -25,10 +25,11 @@ class _DetailPaketPageState extends State<DetailPaketPage> {
         centerTitle: true,
         automaticallyImplyLeading: false,
         leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(Icons.chevron_left)),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(Icons.chevron_left),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -45,7 +46,6 @@ class _DetailPaketPageState extends State<DetailPaketPage> {
                 'Temukan paket yang paling sesuai dengan kebutuhanmu',
                 style: TextStyle(color: Colors.grey),
               ),
-              // const SizedBox(height: 10),
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -99,16 +99,23 @@ class _DetailPaketPageState extends State<DetailPaketPage> {
                   );
                 },
               ),
-              const SizedBox(
-                height: 50,
-              ),
+              const SizedBox(height: 50),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
+                  if (_selectedPaket == -1) {
+                    _showAlertDialog();
+                  } else {
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => CekAlergiSchedule(choosenPaket: 'Paket ${String.fromCharCode(65 + _selectedPaket)}', harga: _getPaketHarga(_selectedPaket), hospital: widget.hospitalName,)
-                      ));
+                        builder: (context) => CekAlergiSchedule(
+                          choosenPaket: 'Paket ${String.fromCharCode(65 + _selectedPaket)}',
+                          harga: _getPaketHarga(_selectedPaket),
+                          hospital: widget.hospitalName,
+                        ),
+                      ),
+                    );
+                  }
                 },
                 child: Container(
                   padding: const EdgeInsets.all(10),
@@ -133,6 +140,26 @@ class _DetailPaketPageState extends State<DetailPaketPage> {
           ),
         ),
       ),
+    );
+  }
+
+  void _showAlertDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Package Not Selected'),
+          content: const Text('Please select a package first before proceeding.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
     );
   }
 
