@@ -44,7 +44,7 @@ class _AddForumPageState extends State<AddForumPage> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('OK'),
+              child: const Text('OK', style: TextStyle(fontFamily: 'Outfit')),
             ),
           ],
         );
@@ -134,10 +134,11 @@ class _AddForumPageState extends State<AddForumPage> {
                     }
                   },
                   child: const Text(
-                    'Kirim',
+                    'Send',
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
+                      fontFamily: 'Outfit'
                     ),
                   ),
                 ),
@@ -152,7 +153,8 @@ class _AddForumPageState extends State<AddForumPage> {
                   TextField(
                     controller: _contentController,
                     decoration: InputDecoration(
-                      hintText: 'Tulis ceritamu disini',
+                      hintText: 'Write your story here',
+                      hintStyle: const TextStyle(fontFamily: 'Outfit'),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),

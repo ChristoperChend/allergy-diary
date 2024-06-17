@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -105,14 +105,14 @@ class _ForumInfoPageState extends State<ForumInfoPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Empty Replies'),
-          content: const Text('Please fill in the reply before sending.'),
+          title: const Text('Empty Replies', style: TextStyle(fontFamily: 'Outfit'),),
+          content: const Text('Please fill in the reply before sending.', style: TextStyle(fontFamily: 'Outfit')),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('OK'),
+              child: const Text('OK', style: TextStyle(fontFamily: 'Outfit')),
             ),
           ],
         );
@@ -148,12 +148,12 @@ class _ForumInfoPageState extends State<ForumInfoPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
-              title: Text(widget.forum['name']),
+              title: Text(widget.forum['name'], style: const TextStyle(fontFamily: 'Outfit'),),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(formattedDate,
-                      style: const TextStyle(color: Colors.grey, fontSize: 12)),
+                      style: const TextStyle(color: Colors.grey, fontSize: 12, fontFamily: 'Outfit')),
                 ],
               ),
               leading: const CircleAvatar(
@@ -166,7 +166,7 @@ class _ForumInfoPageState extends State<ForumInfoPage> {
             Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                child: Text(widget.forum['content'])),
+                child: Text(widget.forum['content'], style: const TextStyle(fontFamily: 'Outfit'))),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -205,8 +205,6 @@ class _ForumInfoPageState extends State<ForumInfoPage> {
               ),
             ),
             const SizedBox(height: 10),
-            Text(formattedDate,
-                style: const TextStyle(color: Colors.grey, fontSize: 12)),
             const Divider(height: 20, thickness: 1),
             Expanded(
               child: StreamBuilder(
@@ -221,7 +219,7 @@ class _ForumInfoPageState extends State<ForumInfoPage> {
                     return const Center(child: CircularProgressIndicator());
                   }
                   if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                    return const Text('Belum ada balasan.');
+                    return const Text('No Replies.', style: TextStyle(fontFamily: 'Outfit'),);
                   }
                   return ListView.builder(
                     itemCount: snapshot.data!.docs.length,
@@ -237,7 +235,7 @@ class _ForumInfoPageState extends State<ForumInfoPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           ListTile(
-                            title: Text(reply['name']),
+                            title: Text(reply['name'], style: const TextStyle(fontFamily: 'Outfit'),),
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -256,7 +254,7 @@ class _ForumInfoPageState extends State<ForumInfoPage> {
                           Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20),
-                              child: Text(reply['content'])),
+                              child: Text(reply['content'], style: const TextStyle(fontFamily: 'Outfit'),)),
                           const Padding(
                               padding: EdgeInsets.symmetric(horizontal: 15),
                               child: Divider()),
@@ -278,7 +276,8 @@ class _ForumInfoPageState extends State<ForumInfoPage> {
                     child: TextField(
                       controller: _replyController,
                       decoration: const InputDecoration(
-                        hintText: 'Masukkan balasan...',
+                        hintStyle: TextStyle(fontFamily: 'Outfit'),
+                        hintText: 'Enter a reply...',
                         border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey),
                             borderRadius:
@@ -306,10 +305,11 @@ class _ForumInfoPageState extends State<ForumInfoPage> {
                         }
                       },
                       child: const Text(
-                        'Kirim',
+                        'Send',
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
+                          fontFamily: 'Outfit'
                         ),
                       ),
                     ),

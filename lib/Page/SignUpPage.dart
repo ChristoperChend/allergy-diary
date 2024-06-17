@@ -23,6 +23,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final phoneNumberController = TextEditingController();
   final passwordController = TextEditingController();
   final passwordConfirmationController = TextEditingController();
+  final alergyController = TextEditingController();
   bool obscureText = true;
 
   @override
@@ -33,6 +34,7 @@ class _SignUpPageState extends State<SignUpPage> {
     phoneNumberController.dispose();
     passwordController.dispose();
     passwordConfirmationController.dispose();
+    alergyController.dispose();
     super.dispose();
   }
 
@@ -75,13 +77,14 @@ class _SignUpPageState extends State<SignUpPage> {
     final phoneNumber = phoneNumberController.text;
     final password = passwordController.text;
     final passwordConfimation = passwordConfirmationController.text;
+    final alergy = alergyController.text;
 
     if (name.isEmpty ||
         date.isEmpty ||
         email.isEmpty ||
         phoneNumber.isEmpty ||
         password.isEmpty ||
-        passwordConfimation.isEmpty) {
+        passwordConfimation.isEmpty || alergy.isEmpty) {
       showErrorDialog('Please fill in all the required data');
       return;
     }
@@ -104,7 +107,8 @@ class _SignUpPageState extends State<SignUpPage> {
           'birthDate': birthDate,
           'phoneNumber': phoneNumber,
           'alamat': '-',
-          'alergi': '-',
+          'alergi': alergy,
+          'role': 'user',
           'uid': userCredential.user!.uid
         });
 
@@ -174,7 +178,7 @@ class _SignUpPageState extends State<SignUpPage> {
           padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
           child: Column(
             children: [
-              SizedBox(height: 100),
+              SizedBox(height: 70),
 
               //! Alergy Diary
               ShaderMask(
@@ -188,8 +192,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           ?.copyWith(
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
-                              fontSize: 45,
-                              fontFamily: 'Kadwa'))),
+                              fontSize: 50,
+                              fontFamily: 'Leckerli'))),
 
               SizedBox(height: 30),
               Column(
@@ -197,7 +201,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 children: [
                   //! Name TextBox
                   Text('Name',
-                      style: TextStyle(fontSize: 15, fontFamily: 'Kadwa')),
+                      style: TextStyle(fontSize: 17, fontFamily: 'Outfit')),
                   TextField(
                     controller: nameController,
                     obscureText: false,
@@ -216,7 +220,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                   //! Birth Date TextBox
                   Text('Birth Date',
-                      style: TextStyle(fontSize: 15, fontFamily: 'Kadwa')),
+                      style: TextStyle(fontSize: 17, fontFamily: 'Outfit')),
                   TextField(
                     controller: dateController,
                     decoration: InputDecoration(
@@ -239,7 +243,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                   //! Email TextBox
                   Text('Email',
-                      style: TextStyle(fontSize: 15, fontFamily: 'Kadwa')),
+                      style: TextStyle(fontSize: 17, fontFamily: 'Outfit')),
                   TextField(
                     controller: emailController,
                     obscureText: false,
@@ -258,7 +262,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                   //! Phone Number TextBox
                   Text('Phone Number',
-                      style: TextStyle(fontSize: 15, fontFamily: 'Kadwa')),
+                      style: TextStyle(fontSize: 17, fontFamily: 'Outfit')),
                   TextField(
                     controller: phoneNumberController,
                     keyboardType: TextInputType.phone,
@@ -278,9 +282,27 @@ class _SignUpPageState extends State<SignUpPage> {
 
                   const SizedBox(height: 20),
 
+                  Text('Alergy',
+                      style: TextStyle(fontSize: 17, fontFamily: 'Outfit')),
+                  TextField(
+                    controller: alergyController,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black)),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue)),
+                      fillColor: Color.fromRGBO(243, 246, 250, 1),
+                      filled: true,
+                      contentPadding: EdgeInsets.all(10),
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
                   //! Password TextBox
                   Text('Password',
-                      style: TextStyle(fontSize: 15, fontFamily: 'Kadwa')),
+                      style: TextStyle(fontSize: 17, fontFamily: 'Outfit')),
                   TextField(
                     controller: passwordController,
                     obscureText: obscureText,
@@ -306,7 +328,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                   //! Password Confirmation TextBox
                   Text('Password Confirmation',
-                      style: TextStyle(fontSize: 15, fontFamily: 'Kadwa')),
+                      style: TextStyle(fontSize: 17, fontFamily: 'Outfit')),
                   TextField(
                     controller: passwordConfirmationController,
                     obscureText: obscureText,
@@ -370,7 +392,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: Text(
                             'Or',
                             style: TextStyle(
-                                color: Colors.grey[700], fontFamily: 'Kadwa'),
+                                color: Colors.grey[700], fontFamily: 'Outfit'),
                           ),
                         ),
                         Expanded(
@@ -406,7 +428,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w500,
-                                      fontFamily: 'Kadwa')),
+                                      fontFamily: 'Outfit')),
                             ],
                           ),
                         ),
@@ -433,7 +455,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           style: TextStyle(
                             color: Colors.grey[700],
                             decoration: TextDecoration.underline,
-                            fontFamily: 'Kadwa',
+                            fontFamily: 'Outfit',
                           ),
                         ),
                       ),

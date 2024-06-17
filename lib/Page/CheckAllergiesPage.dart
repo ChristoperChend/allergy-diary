@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:project/allergiesComponents/RekomendasiRSPage.dart';
 
@@ -14,7 +16,7 @@ class _CheckAllergiesPageState extends State<CheckAllergiesPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Cek Alergi',
+          'Allergy Check',
           style: TextStyle(fontFamily: 'Outfit', fontSize: 25),
         ),
         centerTitle: true,

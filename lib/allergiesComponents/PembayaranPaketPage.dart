@@ -50,20 +50,20 @@ class _PembayaranPaketPageState extends State<PembayaranPaketPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Pengecekan Alergi ${widget.paket}',
+                'Allergy Check ${widget.paket}',
                 style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'Outfit'),
               ),
               const SizedBox(height: 10),
               Text(
                 widget.hospitalName,
                 style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: 'Outfit'),
               ),
               const SizedBox(height: 10),
               Text(
                 widget.choosenDate,
-                style: const TextStyle(color: Colors.grey),
+                style: const TextStyle(color: Colors.grey, fontFamily: 'Outfit'),
               ),
               const SizedBox(
                 height: 10,
@@ -78,9 +78,9 @@ class _PembayaranPaketPageState extends State<PembayaranPaketPage> {
                 children: [
                   Text(
                     'ID Pembayaran',
-                    style: TextStyle(color: Colors.grey),
+                    style: TextStyle(color: Colors.grey, fontFamily: 'Outfit'),
                   ),
-                  Text('IDKNSLN123456789'),
+                  Text('IDKNSLN123456789', style: TextStyle(fontFamily: 'Outfit'),),
                 ],
               ),
               const SizedBox(height: 10),
@@ -88,8 +88,8 @@ class _PembayaranPaketPageState extends State<PembayaranPaketPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text('Biaya Uji Sertifikasi',
-                      style: TextStyle(color: Colors.grey)),
-                  Text('Rp ${widget.harga}'),
+                      style: TextStyle(color: Colors.grey, fontFamily: 'Outfit')),
+                  Text('Rp ${widget.harga}', style: const TextStyle(fontFamily: 'Outfit'),),
                 ],
               ),
               const SizedBox(
@@ -113,7 +113,7 @@ class _PembayaranPaketPageState extends State<PembayaranPaketPage> {
                         children: [
                           const Text(
                             'Selected Payment Method',
-                            style: TextStyle(fontSize: 17),
+                            style: TextStyle(fontSize: 17, fontFamily: 'Outfit'),
                           ),
                           const SizedBox(height: 10),
                           Row(
@@ -126,7 +126,7 @@ class _PembayaranPaketPageState extends State<PembayaranPaketPage> {
                               const SizedBox(width: 8),
                               Text(
                                 selectedPaymentMethod!,
-                                style: const TextStyle(fontSize: 17),
+                                style: const TextStyle(fontSize: 17, fontFamily: 'Outfit'),
                               ),
                             ],
                           ),
@@ -174,7 +174,7 @@ class _PembayaranPaketPageState extends State<PembayaranPaketPage> {
                           SizedBox(width: 15),
                           Text(
                             'Choose Payment Method',
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(fontSize: 15, fontFamily: 'Outfit'),
                           ),
                         ],
                       ),
@@ -210,7 +210,7 @@ class _PembayaranPaketPageState extends State<PembayaranPaketPage> {
                     child: Text(
                       'Next',
                       style: TextStyle(
-                        fontFamily: 'Kadwa',
+                        fontFamily: 'Outfit',
                         color: Colors.white,
                         fontSize: 16,
                       ),
@@ -230,14 +230,14 @@ class _PembayaranPaketPageState extends State<PembayaranPaketPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(error),
-          content: Text(errorMessage),
+          title: Text(error, style: const TextStyle(fontFamily: 'Outfit'),),
+          content: Text(errorMessage, style: const TextStyle(fontFamily: 'Outfit'),),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('OK'),
+              child: const Text('OK', style: TextStyle(fontFamily: 'Outfit')),
             ),
           ],
         );

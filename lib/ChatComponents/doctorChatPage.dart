@@ -78,11 +78,11 @@ class _DoctorChatPageState extends State<DoctorChatPage> {
         stream: cs.getMessages(widget.receiverId, senderID),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return const Text("Error");
+            return const Text("Error", style: TextStyle(fontFamily: 'Outfit'));
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text("Loading .. ");
+            return const Text("Loading .. ", style: TextStyle(fontFamily: 'Outfit'));
           }
 
           return ListView(
@@ -127,6 +127,7 @@ class _DoctorChatPageState extends State<DoctorChatPage> {
                 filled: true,
                 contentPadding: EdgeInsets.all(10),
                 hintText: 'Enter your message...',
+                hintStyle: TextStyle(fontFamily: 'Outfit')
               ),
             ),
           ),

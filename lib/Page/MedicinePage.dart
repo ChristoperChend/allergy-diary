@@ -61,12 +61,13 @@ class _MedicinePageState extends State<MedicinePage> {
                 Text('Rp: ${data['price']}',
                     style: const TextStyle(
                         fontSize: 20,
+                        fontFamily: 'Outfit',
                         color: Color.fromRGBO(63, 142, 233, 1),
                         fontWeight: FontWeight.bold)),
                 const SizedBox(height: 10),
                 const Text(
                   'Description',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontFamily: 'Outfit', fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 Container(
                     decoration: BoxDecoration(
@@ -74,7 +75,7 @@ class _MedicinePageState extends State<MedicinePage> {
                         borderRadius: BorderRadius.circular(8)),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text('${data['description']}'),
+                      child: Text('${data['description']}', style: const TextStyle(fontFamily: 'Outfit'),),
                     )),
               ],
             ),
@@ -185,7 +186,7 @@ class _MedicinePageState extends State<MedicinePage> {
                             contentPadding:
                                 const EdgeInsets.symmetric(vertical: 8),
                             hintText: 'Search for Medicine',
-                            hintStyle: TextStyle(color: Colors.grey.shade400),
+                            hintStyle: TextStyle(fontFamily: 'Outfit', color: Colors.grey.shade400),
                           ),
                         ),
                         const SizedBox(height: 20),

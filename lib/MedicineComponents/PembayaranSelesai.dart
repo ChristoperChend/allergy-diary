@@ -20,6 +20,7 @@ class PembayaranSelesai extends StatelessWidget {
                   'Payment Accepted',
                   style: TextStyle(
                     fontSize: 25,
+                    fontFamily: 'Outfit',
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -49,7 +50,8 @@ class PembayaranSelesai extends StatelessWidget {
                       style: TextStyle(
                         fontFamily: 'Outfit',
                         color: Colors.white,
-                        fontSize: 16,
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold
                       ),
                     ),
                   ),

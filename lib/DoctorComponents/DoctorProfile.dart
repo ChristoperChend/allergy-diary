@@ -89,6 +89,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                           style: TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.bold,
+                            fontFamily: 'Outfit'
                           ),
                         ),
                         if (selectedIndex == 0)
@@ -112,6 +113,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                           'Review',
                           style: TextStyle(
                             fontSize: 17,
+                            fontFamily: 'Outfit',
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -212,6 +214,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                   Text(specialist,
                       style: const TextStyle(
                         fontSize: 17,
+                        fontFamily: 'Outfit',
                         fontWeight: FontWeight.bold,
                       ))
                 ],
@@ -231,6 +234,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                   Text('$experience years',
                       style: const TextStyle(
                         fontSize: 17,
+                        fontFamily: 'Outfit',
                         fontWeight: FontWeight.bold,
                       ))
                 ],
@@ -250,6 +254,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                   Text('Rp $price',
                       style: const TextStyle(
                         fontSize: 17,
+                        fontFamily: 'Outfit',
                         fontWeight: FontWeight.bold,
                       ))
                 ],
@@ -271,6 +276,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                       location,
                       style: const TextStyle(
                         fontSize: 17,
+                        fontFamily: 'Outfit',
                         fontWeight: FontWeight.bold,
                       ),
                       overflow: TextOverflow.visible,
@@ -283,7 +289,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   'Education',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, fontFamily: 'Outfit'),
                 ),
               ),
               FutureBuilder<List<Education>>(
@@ -312,6 +318,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                                   education.year[index],
                                   style: const TextStyle(
                                       fontSize: 16,
+                                      fontFamily: 'Outfit',
                                       fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(width: 20),
@@ -324,6 +331,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                                         education.pendidikan[index],
                                         style: const TextStyle(
                                             fontSize: 16,
+                                            fontFamily: 'Outfit',
                                             fontWeight: FontWeight.bold),
                                         overflow: TextOverflow.visible,
                                       ),
@@ -331,7 +339,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                                       Text(
                                         education.university[index],
                                         style: const TextStyle(
-                                            fontSize: 14, color: Colors.grey),
+                                            fontSize: 14, color: Colors.grey, fontFamily: 'Outfit'),
                                         overflow: TextOverflow.visible,
                                       )
                                     ],

@@ -71,6 +71,7 @@ class DocterInfo extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
+                          fontFamily: 'Outfit'
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -87,6 +88,7 @@ class DocterInfo extends StatelessWidget {
                           Text('${data['specialist']}',
                               style: const TextStyle(
                                   fontSize: 10,
+                                  fontFamily: 'Outfit',
                                   fontWeight: FontWeight.bold,
                                   color: Color.fromRGBO(71, 116, 186, 1)))
                         ],
@@ -107,6 +109,7 @@ class DocterInfo extends StatelessWidget {
                           Text('${data['experience']} years',
                               style: const TextStyle(
                                   fontSize: 12,
+                                  fontFamily: 'Outfit',
                                   fontWeight: FontWeight.bold,
                                   color: Color.fromRGBO(71, 116, 186, 1)))
                         ],
@@ -127,6 +130,7 @@ class DocterInfo extends StatelessWidget {
                           Text('${data['price']}',
                               style: const TextStyle(
                                   fontSize: 12,
+                                  fontFamily: 'Outfit',
                                   fontWeight: FontWeight.bold,
                                   color: Color.fromRGBO(71, 116, 186, 1)))
                         ],
@@ -138,73 +142,5 @@ class DocterInfo extends StatelessWidget {
             ),
           ],
         ));
-    // return Container(
-    //   width: double.infinity,
-    //   height: 400,
-    //   decoration: BoxDecoration(
-    //     color: Colors.white,
-    //     borderRadius: BorderRadius.circular(10),
-    //     boxShadow: [
-    //       BoxShadow(
-    //         color: Colors.grey.withOpacity(0.5),
-    //         spreadRadius: 1,
-    //         blurRadius: 10,
-    //         offset: const Offset(0, 3),
-    //       ),
-    //     ],
-    //   ),
-    //   child: Padding(
-    //     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-    //     child: Column(
-    //       crossAxisAlignment: CrossAxisAlignment.start,
-    //       children: [
-    //         Stack(
-    //           children: [
-    //             Container(
-    //               height: 120,
-
-    //             ),
-    //             Positioned(
-    //                 top: -50,
-    //                 left: 0,
-    //                 right: 0,
-    //                 child: CircleAvatar(
-    //                   radius: 70,
-    //                   backgroundImage: NetworkImage('${data['image']}'),
-    //                 ))
-    //           ],
-    //         ),
-    //         const SizedBox(
-    //           height: 10,
-    //         ),
-    //         Text(
-    //           '${data['name']}',
-    //           style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-    //         ),
-    //         const SizedBox(
-    //           height: 10,
-    //         ),
-    //         Text(
-    //           '${data['specialist']}',
-    //           style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-    //         ),
-    //         const SizedBox(
-    //           height: 10,
-    //         ),
-    //         Text(
-    //           '${data['experience']}',
-    //           style: const TextStyle(color: Color.fromRGBO(63, 142, 233, 1)),
-    //         ),
-    //         const SizedBox(
-    //           height: 10,
-    //         ),
-    //         Text(
-    //           'Rp: ${data['price']}',
-    //           style: const TextStyle(color: Color.fromRGBO(63, 142, 233, 1)),
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }

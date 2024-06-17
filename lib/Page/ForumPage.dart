@@ -45,7 +45,7 @@ class _ForumPageState extends State<ForumPage> {
                 filled: true,
                 contentPadding: const EdgeInsets.symmetric(vertical: 8),
                 hintText: 'Search for Forum...',
-                hintStyle: TextStyle(color: Colors.grey.shade400),
+                hintStyle: TextStyle(color: Colors.grey.shade400, fontFamily: 'Outfit'),
               ),
             ),
             const SizedBox(height: 20),
@@ -79,13 +79,13 @@ class _ForumPageState extends State<ForumPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               ListTile(
-                                title: Text(forum['name']),
+                                title: Text(forum['name'], style: const TextStyle(fontFamily: 'Outfit'),),
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(formattedDate,
                                         style: const TextStyle(
-                                            color: Colors.grey, fontSize: 12)),
+                                            color: Colors.grey, fontSize: 12, fontFamily: 'Outfit')),
                                   ],
                                 ),
                                 leading: const CircleAvatar(
@@ -98,7 +98,7 @@ class _ForumPageState extends State<ForumPage> {
                               Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 15, vertical: 10),
-                                  child: Text(forum['content'])),
+                                  child: Text(forum['content'], style: const TextStyle(fontFamily: 'Outfit'),)),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(

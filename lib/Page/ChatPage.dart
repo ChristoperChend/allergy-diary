@@ -63,7 +63,7 @@ class ChatPage extends StatelessWidget {
         return buildUserList();
       }
     } else {
-      return const Center(child: Text('User not authenticated'));
+      return const Center(child: Text('User not authenticated', style: TextStyle(fontFamily: 'Outfit'),));
     }
   }
 
@@ -72,11 +72,11 @@ class ChatPage extends StatelessWidget {
       stream: cs.getDoctorChatListStream(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return const Text('Error');
+          return const Text('Error', style: TextStyle(fontFamily: 'Outfit'));
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Text('Loading...');
+          return const Text('Loading...', style: TextStyle(fontFamily: 'Outfit'));
         }
 
         if (snapshot.hasData && snapshot.data!.isNotEmpty) {
@@ -87,7 +87,7 @@ class ChatPage extends StatelessWidget {
                 .toList(),
           );
         } else {
-          return const Center(child: Text('No patient available'));
+          return const Center(child: Text('No patient available', style: TextStyle(fontFamily: 'Outfit')));
         }
       },
     );
@@ -118,11 +118,11 @@ class ChatPage extends StatelessWidget {
       stream: cs.getBookedDoctorsStream(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return const Text('Error');
+          return const Text('Error', style: TextStyle(fontFamily: 'Outfit'));
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Text('Loading...');
+          return const Text('Loading...', style: TextStyle(fontFamily: 'Outfit'));
         }
 
         if (snapshot.hasData && snapshot.data!.isNotEmpty) {
@@ -133,7 +133,7 @@ class ChatPage extends StatelessWidget {
                 .toList(),
           );
         } else {
-          return const Center(child: Text('No booked doctors available'));
+          return const Center(child: Text('No booked doctors available', style: TextStyle(fontFamily: 'Outfit')));
         }
       },
     );
@@ -216,9 +216,9 @@ class ChatPage extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Chat Unavailable'),
+          title: const Text('Chat Unavailable', style: TextStyle(fontFamily: 'Outfit')),
           content: const Text(
-              'You can only chat with the doctor according to the selected schedule.'),
+              'You can only chat with the doctor according to the selected schedule.', style: TextStyle(fontFamily: 'Outfit')),
           actions: [
             TextButton(
               onPressed: () {
@@ -237,14 +237,14 @@ class ChatPage extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Error'),
-          content: Text(errorMessage),
+          title: const Text('Error', style: TextStyle(fontFamily: 'Outfit')),
+          content: Text(errorMessage, style: const TextStyle(fontFamily: 'Outfit')),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('OK'),
+              child: const Text('OK', style: TextStyle(fontFamily: 'Outfit')),
             ),
           ],
         );

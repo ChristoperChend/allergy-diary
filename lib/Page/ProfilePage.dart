@@ -146,39 +146,39 @@ class _ProfilePageState extends State<ProfilePage> {
                           const SizedBox(
                             height: 10,
                           ),
-                          const Text('Nama'),
+                          const Text('Nama', style: TextStyle(fontFamily: 'Outfit')),
                           dataBox('name', userData?['name'] as String),
                           const SizedBox(
                             height: 10,
                           ),
-                          const Text('Umur'),
+                          const Text('Umur', style: TextStyle(fontFamily: 'Outfit')),
                           dataAgeBox(),
                           const SizedBox(
                             height: 10,
                           ),
-                          const Text('Nomor Telepon'),
+                          const Text('Nomor Telepon', style: TextStyle(fontFamily: 'Outfit')),
                           dataBox('phoneNumber',
                               userData?['phoneNumber'] as String),
                           const SizedBox(
                             height: 10,
                           ),
-                          const Text('Email'),
+                          const Text('Email', style: TextStyle(fontFamily: 'Outfit')),
                           dataBox('email', userData?['email'] as String),
                           const SizedBox(
                             height: 10,
                           ),
-                          const Text('Alamat'),
+                          const Text('Alamat', style: TextStyle(fontFamily: 'Outfit')),
                           dataBox('alamat', userData?['alamat'] as String),
                           const SizedBox(
                             height: 10,
                           ),
-                          const Text('Alergi'),
+                          const Text('Alergi', style: TextStyle(fontFamily: 'Outfit')),
                           dataBox('alergi', userData?['alergi'] as String),
                           const SizedBox(
                             height: 20,
                           ),
-                          const Text('FAQ'),
-                          const Text('Bantuan'),
+                          const Text('FAQ', style: TextStyle(fontFamily: 'Outfit')),
+                          const Text('Bantuan', style: TextStyle(fontFamily: 'Outfit')),
                         ],
                       ),
                     ),
@@ -192,14 +192,14 @@ class _ProfilePageState extends State<ProfilePage> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('Edit $data'),
+              title: Text('Edit $data', style: const TextStyle(fontFamily: 'Outfit')),
               content: TextField(
                 controller: _textEditingController,
-                decoration: InputDecoration(hintText: 'Enter new $data'),
+                decoration: InputDecoration(hintText: 'Enter new $data', hintStyle: const TextStyle(fontFamily: 'Outfit')),
               ),
               actions: <Widget>[
                 TextButton(
-                  child: const Text('Save'),
+                  child: const Text('Save', style: TextStyle(fontFamily: 'Outfit')),
                   onPressed: () {
                     updateUserDataInFirebase(data, _textEditingController.text);
                     Navigator.of(context).pop();
@@ -218,7 +218,8 @@ class _ProfilePageState extends State<ProfilePage> {
         width: double.infinity,
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: Colors.grey[200],
+          border: Border.all(color: Colors.black),
+          color: const Color.fromRGBO(243, 246, 250, 1),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
@@ -228,11 +229,11 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               Text(
                 userData,
-                style: const TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16, fontFamily: 'Outfit'),
               ),
               const Text(
                 'edit',
-                style: TextStyle(color: Colors.grey),
+                style: TextStyle(color: Colors.grey, fontFamily: 'Outfit'),
               ),
             ],
           ),
@@ -263,7 +264,8 @@ class _ProfilePageState extends State<ProfilePage> {
         width: double.infinity,
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: Colors.grey[200],
+          border: Border.all(color: Colors.black),
+          color: const Color.fromRGBO(243, 246, 250, 1),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
@@ -273,7 +275,7 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               Text(
                 calculateAge(userData!['birthDate']).toString(),
-                style: const TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16, fontFamily: 'Outfit'),
               ),
               const Text(
                 'edit',

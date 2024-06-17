@@ -124,6 +124,10 @@ flutter:
     - family: Lemon
       fonts:
         - asset: assets/Lemon-Regular.ttf
+
+    - family: Leckerli
+      fonts:
+        - asset: assets/LeckerliOne-Regular.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

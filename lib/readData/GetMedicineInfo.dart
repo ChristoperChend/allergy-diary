@@ -61,14 +61,14 @@ class MedicineInfo extends StatelessWidget {
             ),
             Text(
               '${data['medicineName']}',
-              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontFamily: 'Outfit', fontSize: 15, fontWeight: FontWeight.bold),
             ),
             const SizedBox(
               height: 10,
             ),
             Text(
               'Rp: ${data['price']}',
-              style: const TextStyle(color: Color.fromRGBO(63, 142, 233, 1)),
+              style: const TextStyle(fontFamily: 'Outfit', color: Color.fromRGBO(63, 142, 233, 1)),
             ),
           ],
         ),

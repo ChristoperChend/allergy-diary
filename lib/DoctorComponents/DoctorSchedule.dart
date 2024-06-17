@@ -92,9 +92,6 @@ class _DoctorScheduleState extends State<DoctorSchedule> {
         'time': time,
         'timestamp': FieldValue.serverTimestamp(),
       });
-
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Appointment Saved!')));
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Error saving appointment')));
@@ -139,7 +136,7 @@ class _DoctorScheduleState extends State<DoctorSchedule> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text('Select Date',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -197,7 +194,7 @@ class _DoctorScheduleState extends State<DoctorSchedule> {
             ),
             const SizedBox(height: 20),
             const Text('Select Time',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
             const SizedBox(height: 10),
             Wrap(
               spacing: 10,
@@ -222,6 +219,7 @@ class _DoctorScheduleState extends State<DoctorSchedule> {
                       time[index],
                       style: TextStyle(
                         fontSize: 14,
+                        fontFamily: 'Outfit',
                         fontWeight: FontWeight.bold,
                         color: selectedTimeIndex == index
                             ? Colors.white
@@ -300,6 +298,7 @@ class _DoctorScheduleState extends State<DoctorSchedule> {
       textAlign: TextAlign.center,
       style: TextStyle(
         fontSize: 14,
+        fontFamily: 'Outfit',
         fontWeight: FontWeight.bold,
         color: selectedDateIndex == index ? Colors.white : Colors.black,
       ),
@@ -311,14 +310,14 @@ class _DoctorScheduleState extends State<DoctorSchedule> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(error),
-          content: Text(errorMessage),
+          title: Text(error, style: const TextStyle(fontFamily: 'Outfit'),),
+          content: Text(errorMessage, style: const TextStyle(fontFamily: 'Outfit')),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('OK'),
+              child: const Text('OK', style: TextStyle(fontFamily: 'Outfit')),
             ),
           ],
         );

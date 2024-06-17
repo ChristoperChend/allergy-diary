@@ -31,7 +31,7 @@ class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     future = requestCameraPermission();
     fetchAllergens();
-    fetchUserAllergies(); // Fetch user allergies when initializing
+    fetchUserAllergies();
   }
 
   @override
@@ -48,7 +48,8 @@ class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
 
   Future<void> fetchUserAllergies() async {
     String userId = 'UY2VuO3XehakiTC8WacnJG2BS1x2';
-    DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(userId).get();
+    DocumentSnapshot userDoc =
+        await FirebaseFirestore.instance.collection('users').doc(userId).get();
     if (userDoc.exists) {
       userAllergies = List<String>.from(userDoc['allergies']);
     }
@@ -136,11 +137,7 @@ class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
         ),
       );
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('An error occurred when scanning text'),
-        ),
-      );
+      _showAlertDialog();
     }
   }
 
@@ -156,7 +153,6 @@ class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
         }
       }
     }
-    // Debugging print statements to check detected allergens
     print('Detected Allergens: $detectedAllergens');
     return detectedAllergens;
   }
@@ -224,6 +220,7 @@ class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
                           child: const Text(
                             'Camera Permission Denied',
                             textAlign: TextAlign.center,
+                            style: TextStyle(fontFamily: 'Outfit'),
                           ),
                         ),
                       ),
@@ -231,5 +228,29 @@ class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
             ],
           );
         });
+  }
+
+  void _showAlertDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text(
+            'Error',
+            style: TextStyle(fontFamily: 'Outfit'),
+          ),
+          content: const Text('An error occurred when scanning text.',
+              style: TextStyle(fontFamily: 'Outfit')),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK', style: TextStyle(fontFamily: 'Outfit')),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

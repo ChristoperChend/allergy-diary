@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -59,15 +59,15 @@ class _DetailPembayaranState extends State<DetailPembayaran> {
                       children: [
                         Text(
                           widget.product,
-                          style: const TextStyle(
+                          style: const TextStyle(fontFamily: 'Outfit',
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           'Amount: 1 Strip (10 Tablet)',
-                          style: TextStyle(color: Colors.grey.shade600),
+                          style: TextStyle(fontFamily: 'Outfit', color: Colors.grey.shade600),
                         ),
                         Text('27 July 2023, 11:00 WIB',
-                            style: TextStyle(color: Colors.grey.shade600)),
+                            style: TextStyle(fontFamily: 'Outfit', color: Colors.grey.shade600)),
                       ],
                     ),
                   ),
@@ -90,11 +90,11 @@ class _DetailPembayaranState extends State<DetailPembayaran> {
                           children: [
                             Text(
                               'Payment ID',
-                              style: TextStyle(fontSize: 17),
+                              style: TextStyle(fontFamily: 'Outfit', fontSize: 17),
                             ),
                             Text(
                               'IDKNSLN123456789',
-                              style: TextStyle(fontSize: 17),
+                              style: TextStyle(fontFamily: 'Outfit', fontSize: 17),
                             ),
                           ],
                         ),
@@ -103,10 +103,10 @@ class _DetailPembayaranState extends State<DetailPembayaran> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text('Total Payment',
-                                style: TextStyle(fontSize: 17)),
+                                style: TextStyle(fontFamily: 'Outfit', fontSize: 17)),
                             Text(
                               widget.price,
-                              style: const TextStyle(fontSize: 17),
+                              style: const TextStyle(fontFamily: 'Outfit', fontSize: 17),
                             ),
                           ],
                         )
@@ -129,7 +129,7 @@ class _DetailPembayaranState extends State<DetailPembayaran> {
                       children: [
                         const Text(
                           'Shipping Address',
-                          style: TextStyle(fontSize: 17),
+                          style: TextStyle(fontFamily: 'Outfit', fontSize: 17),
                         ),
                         const SizedBox(
                           height: 10,
@@ -157,7 +157,7 @@ class _DetailPembayaranState extends State<DetailPembayaran> {
                 ),
               ),
               const SizedBox(
-                height: 40,
+                height: 20,
               ),
               if (selectedPaymentMethod != null && selectedPaymentImage != null)
                 Center(
@@ -174,7 +174,7 @@ class _DetailPembayaranState extends State<DetailPembayaran> {
                         children: [
                           const Text(
                             'Selected Payment Method',
-                            style: TextStyle(fontSize: 17),
+                            style: TextStyle(fontFamily: 'Outfit', fontSize: 17),
                           ),
                           const SizedBox(height: 10),
                           Row(
@@ -187,7 +187,7 @@ class _DetailPembayaranState extends State<DetailPembayaran> {
                               const SizedBox(width: 8),
                               Text(
                                 selectedPaymentMethod!,
-                                style: const TextStyle(fontSize: 17),
+                                style: const TextStyle(fontFamily: 'Outfit', fontSize: 17),
                               ),
                             ],
                           ),
@@ -235,7 +235,7 @@ class _DetailPembayaranState extends State<DetailPembayaran> {
                           SizedBox(width: 15),
                           Text(
                             'Choose Payment Method',
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(fontFamily: 'Outfit', fontSize: 15),
                           ),
                         ],
                       ),
@@ -273,9 +273,10 @@ class _DetailPembayaranState extends State<DetailPembayaran> {
                     child: Text(
                       'Next',
                       style: TextStyle(
-                        fontFamily: 'Kadwa',
+                        fontFamily: 'Outfit',
                         color: Colors.white,
                         fontSize: 16,
+                        fontWeight: FontWeight.bold
                       ),
                     ),
                   ),
@@ -293,14 +294,14 @@ class _DetailPembayaranState extends State<DetailPembayaran> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(error),
-          content: Text(errorMessage),
+          title: Text(error, style: const TextStyle(fontFamily: 'Outfit'),),
+          content: Text(errorMessage, style: const TextStyle(fontFamily: 'Outfit')),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('OK'),
+              child: const Text('OK', style: TextStyle(fontFamily: 'Outfit')),
             ),
           ],
         );

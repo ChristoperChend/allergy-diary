@@ -19,7 +19,7 @@ class _DetailPaketPageState extends State<DetailPaketPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Detail Paket',
+          'Package Details',
           style: TextStyle(fontFamily: 'Outfit', fontSize: 25),
         ),
         centerTitle: true,
@@ -38,13 +38,13 @@ class _DetailPaketPageState extends State<DetailPaketPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Paket Pengecekan Alergi',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                'Allergy Check Package',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'Outfit'),
               ),
               const SizedBox(height: 10),
               const Text(
-                'Temukan paket yang paling sesuai dengan kebutuhanmu',
-                style: TextStyle(color: Colors.grey),
+                'Find the plan that best suits your needs',
+                style: TextStyle(color: Colors.grey, fontFamily: 'Outfit'),
               ),
               ListView.builder(
                 shrinkWrap: true,
@@ -76,10 +76,11 @@ class _DetailPaketPageState extends State<DetailPaketPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Paket ${String.fromCharCode(65 + index)}',
+                              'Package ${String.fromCharCode(65 + index)}',
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 18,
+                                fontSize: 20,
+                                fontFamily: 'Outfit'
                               ),
                             ),
                             const SizedBox(height: 8),
@@ -88,6 +89,7 @@ class _DetailPaketPageState extends State<DetailPaketPage> {
                               style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
+                                fontFamily: 'Outfit'
                               ),
                             ),
                             const SizedBox(height: 8),
@@ -109,7 +111,7 @@ class _DetailPaketPageState extends State<DetailPaketPage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => CekAlergiSchedule(
-                          choosenPaket: 'Paket ${String.fromCharCode(65 + _selectedPaket)}',
+                          choosenPaket: 'Package ${String.fromCharCode(65 + _selectedPaket)}',
                           harga: _getPaketHarga(_selectedPaket),
                           hospital: widget.hospitalName,
                         ),
@@ -125,7 +127,7 @@ class _DetailPaketPageState extends State<DetailPaketPage> {
                   ),
                   child: const Center(
                     child: Text(
-                      'Lanjut',
+                      'Next',
                       style: TextStyle(
                         fontFamily: 'Outfit',
                         color: Colors.white,
@@ -148,14 +150,14 @@ class _DetailPaketPageState extends State<DetailPaketPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Package Not Selected'),
-          content: const Text('Please select a package first before proceeding.'),
+          title: const Text('Package Not Selected', style: TextStyle(fontFamily: 'Outfit'),),
+          content: const Text('Please select a package first before proceeding.', style: TextStyle(fontFamily: 'Outfit')),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('OK'),
+              child: const Text('OK', style: TextStyle(fontFamily: 'Outfit')),
             ),
           ],
         );
@@ -182,14 +184,14 @@ class _DetailPaketPageState extends State<DetailPaketPage> {
         return const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('• 1x pengecekan lewat tes darah'),
-            Text('• 1x pengecekan lewat tes kulit'),
+            Text('• 1x checking through blood test', style: TextStyle(fontFamily: 'Outfit')),
+            Text('• 1x checking through skin test', style: TextStyle(fontFamily: 'Outfit')),
           ],
         );
       case 1:
-        return const Text('• 1x pengecekan lewat tes kulit');
+        return const Text('• 1x checking through skin test', style: TextStyle(fontFamily: 'Outfit'));
       case 2:
-        return const Text('• 1x pengecekan lewat tes darah');
+        return const Text('• 1x hecking through blood test', style: TextStyle(fontFamily: 'Outfit'));
       default:
         return Container();
     }

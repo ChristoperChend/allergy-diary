@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project/MedicineComponents/Pembayaran.dart';
@@ -10,12 +12,12 @@ class DoctorPayment extends StatefulWidget {
   final String price;
 
   const DoctorPayment({
-    Key? key,
+    super.key,
     required this.image,
     required this.name,
     required this.choosenDate,
     required this.price,
-  }) : super(key: key);
+  });
 
   @override
   State<DoctorPayment> createState() => _DoctorPaymentState();
@@ -58,20 +60,20 @@ class _DoctorPaymentState extends State<DoctorPayment> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(widget.name, style: const TextStyle(fontSize: 17)),
+                      Text(widget.name, style: const TextStyle(fontFamily: 'Outfit',fontSize: 17)),
                       const SizedBox(
                         height: 5,
                       ),
                       const Text(
                         'Online Consultation',
-                        style: TextStyle(fontSize: 17),
+                        style: TextStyle(fontFamily: 'Outfit',fontSize: 17),
                       ),
                       const SizedBox(
                         height: 5,
                       ),
                       Text(
                         widget.choosenDate,
-                        style: const TextStyle(fontSize: 17),
+                        style: const TextStyle(fontFamily: 'Outfit',fontSize: 17),
                       )
                     ],
                   )
@@ -95,11 +97,11 @@ class _DoctorPaymentState extends State<DoctorPayment> {
                         Text(
                           'Payment ID',
                           style:
-                              TextStyle(color: Colors.grey[600], fontSize: 17),
+                              TextStyle(fontFamily: 'Outfit',color: Colors.grey[600], fontSize: 17),
                         ),
                         const Text(
                           'IDKNSLN123456789',
-                          style: TextStyle(
+                          style: TextStyle(fontFamily: 'Outfit',
                               fontSize: 17, fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -113,11 +115,11 @@ class _DoctorPaymentState extends State<DoctorPayment> {
                         Text(
                           'Session Fee',
                           style:
-                              TextStyle(color: Colors.grey[600], fontSize: 17),
+                              TextStyle(fontFamily: 'Outfit',color: Colors.grey[600], fontSize: 17),
                         ),
                         const Text(
                           'Rp 35.000',
-                          style: TextStyle(
+                          style: TextStyle(fontFamily: 'Outfit',
                               fontSize: 17, fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -148,7 +150,7 @@ class _DoctorPaymentState extends State<DoctorPayment> {
                         children: [
                           const Text(
                             'Selected Payment Method',
-                            style: TextStyle(fontSize: 17),
+                            style: TextStyle(fontFamily: 'Outfit',fontSize: 17),
                           ),
                           const SizedBox(height: 10),
                           Row(
@@ -161,7 +163,7 @@ class _DoctorPaymentState extends State<DoctorPayment> {
                               const SizedBox(width: 8),
                               Text(
                                 selectedPaymentMethod!,
-                                style: const TextStyle(fontSize: 17),
+                                style: const TextStyle(fontFamily: 'Outfit',fontSize: 17),
                               ),
                             ],
                           ),
@@ -209,7 +211,7 @@ class _DoctorPaymentState extends State<DoctorPayment> {
                           SizedBox(width: 15),
                           Text(
                             'Choose Payment Method',
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(fontFamily: 'Outfit',fontSize: 15),
                           ),
                         ],
                       ),
@@ -245,9 +247,10 @@ class _DoctorPaymentState extends State<DoctorPayment> {
                     child: Text(
                       'Next',
                       style: TextStyle(
-                        fontFamily: 'Kadwa',
+                        fontFamily: 'Outfit',
                         color: Colors.white,
-                        fontSize: 16,
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold
                       ),
                     ),
                   ),
@@ -265,14 +268,14 @@ class _DoctorPaymentState extends State<DoctorPayment> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(error),
-          content: Text(errorMessage),
+          title: Text(error, style: const TextStyle(fontFamily: 'Outfit'),),
+          content: Text(errorMessage, style: const TextStyle(fontFamily: 'Outfit')),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('OK'),
+              child: const Text('OK', style: TextStyle(fontFamily: 'Outfit')),
             ),
           ],
         );

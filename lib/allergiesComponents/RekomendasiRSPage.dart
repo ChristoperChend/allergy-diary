@@ -35,15 +35,15 @@ class _RekomendasiRSPageState extends State<RekomendasiRSPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Rekomendasi Rumah Sakit',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                'Hospital Recommendations',
+                style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold, fontFamily: 'Outfit'),
               ),
               const SizedBox(
                 height: 7,
               ),
               const Text(
-                'Temukan rumah sakit terbaik untuk melakukan pengecekan alergi',
-                style: TextStyle(fontSize: 15),
+                'Find the best hospital to get your allergy checked',
+                style: TextStyle(fontSize: 15, fontFamily: 'Outfit'),
               ),
               const SizedBox(
                 height: 20,
@@ -61,7 +61,7 @@ class _RekomendasiRSPageState extends State<RekomendasiRSPage> {
                   filled: true,
                   contentPadding: const EdgeInsets.symmetric(vertical: 8),
                   hintText: 'Search for Hospital',
-                  hintStyle: TextStyle(color: Colors.grey.shade400),
+                  hintStyle: TextStyle(color: Colors.grey.shade400, fontFamily: 'Outfit'),
                 ),
               ),
               const SizedBox(
@@ -129,14 +129,14 @@ class _RekomendasiRSPageState extends State<RekomendasiRSPage> {
                   Text(
                     hospitalData['hospitalName'],
                     style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
+                        fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Outfit'),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
                   Text(
                     hospitalData['hospitalAddress'],
-                    style: const TextStyle(color: Colors.grey),
+                    style: const TextStyle(color: Colors.grey, fontFamily: 'Outfit'),
                   )
                 ],
               ),

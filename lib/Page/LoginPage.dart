@@ -115,15 +115,15 @@ class _LoginPageState extends State<LoginPage> {
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
-                        fontSize: 45,
-                        fontFamily: 'Kadwa'))),
+                        fontSize: 50,
+                        fontFamily: 'Leckerli'))),
 
             SizedBox(height: 30),
 
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               //! Email TextBox
               Text('Email',
-                  style: TextStyle(fontSize: 15, fontFamily: 'Kadwa')),
+                  style: TextStyle(fontSize: 17, fontFamily: 'Outfit')),
               TextField(
                 controller: emailController,
                 obscureText: false,
@@ -142,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
 
               //! Password TextBox
               Text('Password',
-                  style: TextStyle(fontSize: 15, fontFamily: 'Kadwa')),
+                  style: TextStyle(fontSize: 17, fontFamily: 'Outfit')),
               TextField(
                 controller: passwordController,
                 obscureText: obscureText,
@@ -178,7 +178,7 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     child: Text('Forgot Password?',
                         style: TextStyle(
-                            color: Colors.grey[600], fontFamily: 'Kadwa')),
+                            color: Colors.grey[600], fontFamily: 'Outfit')),
                   ),
                 ],
               ),
@@ -198,9 +198,9 @@ class _LoginPageState extends State<LoginPage> {
                     child: Text(
                       'Login',
                       style: TextStyle(
-                        fontFamily: 'Kadwa',
+                        fontFamily: 'Outfit',
                         color: Colors.black,
-                        fontSize: 16,
+                        fontSize: 17,
                       ),
                     ),
                   ),
@@ -225,7 +225,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Text(
                         'Or',
                         style: TextStyle(
-                            color: Colors.grey[700], fontFamily: 'Kadwa'),
+                            color: Colors.grey[700], fontFamily: 'Outfit'),
                       ),
                     ),
                     Expanded(
@@ -261,7 +261,7 @@ class _LoginPageState extends State<LoginPage> {
                               style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w500,
-                                  fontFamily: 'Kadwa')),
+                                  fontFamily: 'Outfit')),
                         ],
                       ),
                     ),
@@ -278,7 +278,7 @@ class _LoginPageState extends State<LoginPage> {
                   Text(
                     'Don\'t have an account?',
                     style:
-                        TextStyle(color: Colors.grey[700], fontFamily: 'Kadwa'),
+                        TextStyle(color: Colors.grey[700], fontFamily: 'Outfit'),
                   ),
                   const SizedBox(width: 4),
                   GestureDetector(
@@ -288,7 +288,7 @@ class _LoginPageState extends State<LoginPage> {
                       style: TextStyle(
                         color: Colors.grey[700],
                         decoration: TextDecoration.underline,
-                        fontFamily: 'Kadwa',
+                        fontFamily: 'Outfit',
                       ),
                     ),
                   ),

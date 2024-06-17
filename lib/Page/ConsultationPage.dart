@@ -88,9 +88,9 @@ class _ConsultationPageState extends State<ConsultationPage> {
                           style: TextStyle(fontSize: 25, fontFamily: 'Outfit'),
                         ),
                         Text(
-                          'Konsultasi dengan tenaga medis ahli pilihan Alergy Diary',
+                          'Consultation with selected medical experts Alergy Diary',
                           style: TextStyle(
-                              fontSize: 16.5,
+                              fontSize: 16,
                               fontFamily: 'Outfit',
                               color: Colors.grey[600]),
                         ),

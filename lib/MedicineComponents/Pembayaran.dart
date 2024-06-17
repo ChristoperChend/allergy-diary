@@ -42,7 +42,7 @@ class Pembayaran extends StatelessWidget {
                         Text(
                           'Virtual Account Numbers',
                           style: TextStyle(
-                              fontSize: 15, color: Colors.grey.shade600),
+                              fontSize: 15, color: Colors.grey.shade600, fontFamily: 'Outfit'),
                         ),
                         Divider(
                           color: Colors.grey.shade600,
@@ -54,7 +54,7 @@ class Pembayaran extends StatelessWidget {
                         const Text(
                           '1234567890123456789',
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                              fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'Outfit'),
                         ),
                       ],
                     ),
@@ -70,51 +70,51 @@ class Pembayaran extends StatelessWidget {
                     const Text(
                       'Payment Details',
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w600, fontFamily: 'Outfit'),
                     ),
                     const SizedBox(
                       height: 15,
                     ),
                     Text(
                       'Payment ID',
-                      style: TextStyle(color: Colors.grey.shade600),
+                      style: TextStyle(color: Colors.grey.shade600, fontFamily: 'Outfit'),
                     ),
                     const Text(
                       'IDKNSLN123456789',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18, fontFamily: 'Outfit'),
                     ),
                     const SizedBox(
                       height: 15,
                     ),
                     Text(
                       'Total Payment',
-                      style: TextStyle(color: Colors.grey.shade600),
+                      style: TextStyle(color: Colors.grey.shade600, fontFamily: 'Outfit'),
                     ),
                     Text(
                       price,
-                      style: const TextStyle(fontSize: 18),
+                      style: const TextStyle(fontSize: 18, fontFamily: 'Outfit'),
                     ),
                     const SizedBox(
                       height: 15,
                     ),
                     Text(
                       'Payment Method',
-                      style: TextStyle(color: Colors.grey.shade600),
+                      style: TextStyle(color: Colors.grey.shade600, fontFamily: 'Outfit'),
                     ),
                     Text(
                       choosenMethod,
-                      style: const TextStyle(fontSize: 18),
+                      style: const TextStyle(fontSize: 18, fontFamily: 'Outfit'),
                     ),
                     const SizedBox(
                       height: 15,
                     ),
                     Text(
                       'Time Limit',
-                      style: TextStyle(color: Colors.grey.shade600),
+                      style: TextStyle(color: Colors.grey.shade600, fontFamily: 'Outfit'),
                     ),
                     const Text(
                       '23 Hours 59 Minutes 59 Seconds',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18, fontFamily: 'Outfit'),
                     ),
                   ],
                 ),
@@ -137,9 +137,10 @@ class Pembayaran extends StatelessWidget {
                     child: Text(
                       'Next',
                       style: TextStyle(
-                        fontFamily: 'Kadwa',
+                        fontFamily: 'Outfit',
                         color: Colors.white,
-                        fontSize: 16,
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold
                       ),
                     ),
                   ),

@@ -35,8 +35,8 @@ class _DetailRSPageState extends State<DetailRSPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Detail Rumah Sakit',
-          style: TextStyle(fontFamily: 'Outfit', fontSize: 25),
+          'Hospital Details',
+          style: TextStyle(fontFamily: 'Outfit', fontSize: 25,),
         ),
         centerTitle: true,
         automaticallyImplyLeading: false,
@@ -64,7 +64,7 @@ class _DetailRSPageState extends State<DetailRSPage> {
               Text(
                 widget.hospitalName,
                 style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'Outfit'),
               ),
               const SizedBox(
                 height: 15,
@@ -75,8 +75,8 @@ class _DetailRSPageState extends State<DetailRSPage> {
                 height: 10,
               ),
               const Text(
-                'Tentang',
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                'About',
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, fontFamily: 'Outfit'),
               ),
               const SizedBox(
                 height: 5,
@@ -88,11 +88,11 @@ class _DetailRSPageState extends State<DetailRSPage> {
                       text: isExpanded
                           ? widget.about
                           : '${widget.about.substring(0, 100)}...',
-                      style: const TextStyle(fontSize: 14, color: Colors.black),
+                      style: const TextStyle(fontSize: 14, color: Colors.black, fontFamily: 'Outfit'),
                     ),
                     TextSpan(
                       text:
-                          isExpanded ? ' Lihat Lebih Sedikit' : ' Lihat Semua',
+                          isExpanded ? '   See Less' : '   See All',
                       style: const TextStyle(
                           fontSize: 14,
                           color: Color.fromRGBO(63, 142, 233, 100),
@@ -111,8 +111,8 @@ class _DetailRSPageState extends State<DetailRSPage> {
                 height: 10,
               ),
               const Text(
-                'Alamat',
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                'Address',
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, fontFamily: 'Outfit'),
               ),
               const SizedBox(
                 height: 5,
@@ -127,15 +127,15 @@ class _DetailRSPageState extends State<DetailRSPage> {
                   const SizedBox(
                     width: 5,
                   ),
-                  Expanded(child: Text(widget.hospitalAddress))
+                  Expanded(child: Text(widget.hospitalAddress, style: const TextStyle(fontFamily: 'Outfit'),))
                 ],
               ),
               const SizedBox(
                 height: 10,
               ),
               const Text(
-                'Kontak',
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                'Contact',
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, fontFamily: 'Outfit'),
               ),
               const SizedBox(
                 height: 5,
@@ -149,7 +149,7 @@ class _DetailRSPageState extends State<DetailRSPage> {
                   const SizedBox(
                     width: 10,
                   ),
-                  Text(widget.email),
+                  Text(widget.email, style: const TextStyle(fontFamily: 'Outfit'),),
                 ],
               ),
               const SizedBox(
@@ -164,7 +164,7 @@ class _DetailRSPageState extends State<DetailRSPage> {
                   const SizedBox(
                     width: 10,
                   ),
-                  Text(widget.telepon),
+                  Text(widget.telepon, style: const TextStyle(fontFamily: 'Outfit'),),
                 ],
               ),
               const SizedBox(
@@ -179,7 +179,7 @@ class _DetailRSPageState extends State<DetailRSPage> {
                   const SizedBox(
                     width: 10,
                   ),
-                  Text(widget.website)
+                  Text(widget.website, style: const TextStyle(fontFamily: 'Outfit'),)
                 ],
               ),
               const SizedBox(
@@ -206,7 +206,7 @@ class _DetailRSPageState extends State<DetailRSPage> {
                   ),
                   child: const Center(
                     child: Text(
-                      'Pesan Pengecekan Alergi',
+                      'Order an Allergy Check',
                       style: TextStyle(
                         fontFamily: 'Outfit',
                         color: Colors.white,

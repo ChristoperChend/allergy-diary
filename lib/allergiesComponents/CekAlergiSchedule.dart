@@ -89,7 +89,7 @@ class _CekAlergiScheduleState extends State<CekAlergiSchedule> {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const Text('Select Date',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
               const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -131,7 +131,7 @@ class _CekAlergiScheduleState extends State<CekAlergiSchedule> {
                               SizedBox(height: 35),
                               Text(
                                 'Others',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Outfit'),
                               )
                             ],
                           )
@@ -147,7 +147,7 @@ class _CekAlergiScheduleState extends State<CekAlergiSchedule> {
               ),
               const SizedBox(height: 20),
               const Text('Select Time',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
               const SizedBox(height: 10),
               Wrap(
                 spacing: 10,
@@ -173,6 +173,7 @@ class _CekAlergiScheduleState extends State<CekAlergiSchedule> {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
+                          fontFamily: 'Outfit',
                           color: selectedTimeIndex == index
                               ? Colors.white
                               : Colors.black,
@@ -243,6 +244,7 @@ class _CekAlergiScheduleState extends State<CekAlergiSchedule> {
       textAlign: TextAlign.center,
       style: TextStyle(
         fontSize: 14,
+        fontFamily: 'Outfit',
         fontWeight: FontWeight.bold,
         color: selectedDateIndex == index ? Colors.white : Colors.black,
       ),
@@ -254,14 +256,15 @@ class _CekAlergiScheduleState extends State<CekAlergiSchedule> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(error),
-          content: Text(errorMessage),
+          title: Text(error, style: const TextStyle(fontFamily: 'Outfit'),),
+          content: Text(errorMessage, style: const TextStyle(fontFamily: 'Outfit')),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('OK'),
+              child: const Text('OK', style: 
+              TextStyle(fontFamily: 'Outfit')),
             ),
           ],
         );

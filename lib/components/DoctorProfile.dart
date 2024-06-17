@@ -175,7 +175,6 @@ class _DocterProfilePageState extends State<DocterProfilePage> {
             .map((doc) => Education.fromFirestore(doc))
             .toList();
       } else {
-        // Handle the case where no doctor with the given email is found
         return [];
       }
     }
